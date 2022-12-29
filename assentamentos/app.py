@@ -128,7 +128,7 @@ class ArquivoODT(Arquivo):
                 assunto = new_element("p", attrs=[("style-name","P39")])
                 assunto.append( new_element("span", attrs=[("style-name","T50")], text = "-a %d,"%data_event.day) )
                 assunto.append( new_element("span", attrs=[("style-name","T50")], text = " %s Nº %d - "%(config[section]["doc_tipo"],int(config[section]["doc_numero"]) )) )
-                assunto.append( new_element("span", attrs=[("style-name","T50")], text = config[section]["assunto"]%self._data) )
+                assunto.append( new_element("span", attrs=[("style-name","T50")], text = config[section]["assunto"].format(**self._data)) )
                 res.append( assunto )
                 if config[section].get("modo", "normal") == "taf":
                     #add tabela TAF

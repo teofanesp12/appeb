@@ -17,7 +17,7 @@ LINUX:
 
 WINDOWS:
 
-necessario baixar o instalador: [Python ORG]([http://teofanesp12.pythonanywhere.com](https://www.python.org/downloads/))
+necessario baixar o instalador: [Python ORG](https://www.python.org/downloads/)
 
 INICIAR
 -------
