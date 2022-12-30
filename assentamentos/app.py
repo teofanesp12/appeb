@@ -16,72 +16,77 @@ class ArquivoODT(Arquivo):
 
     def _taf(self, section):
         res = []
-        table = new_element("table", attrs=[("name",section),("style-name","Tabela3")], nsmap="table")
+        table = new_element("table", attrs=[("name",section),("style-name","TabelaTAF")], nsmap="table")
         # Construimos as columas....
-        table.append( new_element("table-column", attrs=[("style-name","Tabela3.A")], nsmap="table") )
-        table.append( new_element("table-column", attrs=[("style-name","Tabela3.B")], nsmap="table") )
-        table.append( new_element("table-column", attrs=[("style-name","Tabela3.C")], nsmap="table") )
-        table.append( new_element("table-column", attrs=[("style-name","Tabela3.D")], nsmap="table") )
-        table.append( new_element("table-column", attrs=[("style-name","Tabela3.E")], nsmap="table") )
-        table.append( new_element("table-column", attrs=[("style-name","Tabela3.F")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaTAF.A")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaTAF.B")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaTAF.C")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaTAF.D")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaTAF.E")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaTAF.F")], nsmap="table") )
         # Construimos a primeira linha como cabeçalho...
-        header = new_element("table-row", attrs=[("style-name","Tabela3.1")], nsmap="table")
-        body = new_element("table-row", attrs=[("style-name","Tabela3.1")], nsmap="table")
+        header = new_element("table-row", attrs=[("style-name","TabelaTAF.1")], nsmap="table")
+        body = new_element("table-row", attrs=[("style-name","TabelaTAF.1")], nsmap="table")
         # inserimos o cabeçalho
-        cell = new_element("table-cell", attrs=[("style-name","Tabela3.A1"), ['value-type','string','office']], nsmap="table")
-        cell.append( new_element("p", attrs=[("style-name","P75")], text="GRAD") )
+        cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="GRAD") )
         header.append( cell )
         
-        cell = new_element("table-cell", attrs=[("style-name","Tabela3.A1"), ['value-type','string','office']], nsmap="table")
-        cell.append( new_element("p", attrs=[("style-name","P75")], text="NOME") )
+        cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="NOME") )
         header.append( cell )
         
-        cell = new_element("table-cell", attrs=[("style-name","Tabela3.A1"), ['value-type','string','office']], nsmap="table")
-        cell.append( new_element("p", attrs=[("style-name","P75")], text="MENÇÃO") )
+        cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="MENÇÃO") )
         header.append( cell )
         
-        cell = new_element("table-cell", attrs=[("style-name","Tabela3.D1"), ['value-type','string','office']], nsmap="table")
-        cell.append( new_element("p", attrs=[("style-name","P75")], text="PBD") )
+        cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="PBD") )
         header.append( cell )
         
-        cell = new_element("table-cell", attrs=[("style-name","Tabela3.D1"), ['value-type','string','office']], nsmap="table")
-        cell.append( new_element("p", attrs=[("style-name","P75")], text="PAD") )
+        cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="PAD") )
         header.append( cell )
         
-        cell = new_element("table-cell", attrs=[("style-name","Tabela3.D1"), ['value-type','string','office']], nsmap="table")
-        cell.append( new_element("p", attrs=[("style-name","P75")], text="Obs") )
+        cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="Obs") )
         header.append( cell )
         
         table.append( header )
 
         # inserimos o Corpo
-        cell = new_element("table-cell", attrs=[("style-name","Tabela3.A1"), ['value-type','string','office']], nsmap="table")
-        cell.append( new_element("p", attrs=[("style-name","P85")], text=self._data.get("grad","Sd Ef Vrv")) )
+        cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("grad","Sd Ef Vrv")) )
         body.append( cell )
         
-        cell = new_element("table-cell", attrs=[("style-name","Tabela3.A1"), ['value-type','string','office']], nsmap="table")
-        cell.append( new_element("p", attrs=[("style-name","P85")], text=self._data["nome"]) )
+        cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data["nome"]) )
         body.append( cell )
         
-        cell = new_element("table-cell", attrs=[("style-name","Tabela3.A1"), ['value-type','string','office']], nsmap="table")
-        cell.append( new_element("p", attrs=[("style-name","P85")], text=self._data.get("%s_MEN"%section)) )
+        cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_MEN"%section)) )
         body.append( cell )
         
-        cell = new_element("table-cell", attrs=[("style-name","Tabela3.D1"), ['value-type','string','office']], nsmap="table")
-        cell.append( new_element("p", attrs=[("style-name","P85")], text=self._data.get("%s_PBD"%section)) )
+        cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_PBD"%section)) )
         body.append( cell )
         
-        cell = new_element("table-cell", attrs=[("style-name","Tabela3.D1"), ['value-type','string','office']], nsmap="table")
-        cell.append( new_element("p", attrs=[("style-name","P85")], text=self._data.get("%s_PAD"%section)) )
+        cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_PAD"%section)) )
         body.append( cell )
         
-        cell = new_element("table-cell", attrs=[("style-name","Tabela3.D1"), ['value-type','string','office']], nsmap="table")
-        cell.append( new_element("p", attrs=[("style-name","P85")], text=self._data.get("%s_OBS"%section, " - ") ) )
+        cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_OBS"%section, " - ") ) )
         body.append( cell )
 
         table.append( body )
         
         res.append(table)
+        return res
+
+    def _trans_interna(self, section):
+        res = []
+        # grad, nome, qmg_qmp, origem, destino, claro, obs
         return res
 
     def populate(self):
@@ -90,7 +95,7 @@ class ArquivoODT(Arquivo):
             "parte_1":[],
             "parte_2":[],
         }
-        blank_line= lambda: new_element("p", attrs=[("style-name","P8")])
+        blank_line= lambda: new_element("p", attrs=[("style-name","PBLANK")])
         #
         # abrimos o arquivo de configuração
         #
@@ -100,8 +105,8 @@ class ArquivoODT(Arquivo):
         meses = []
         for mes in range(1,13):
             res = []
-            mes_el = new_element("p", attrs=[("style-name","P10")])
-            mes_el.append( new_element("span", attrs=[("style-name","T37")], text = MES[mes]) )
+            mes_el = new_element("p", attrs=[("style-name","PMES")])
+            mes_el.append( new_element("span", attrs=[("style-name","TMES")], text = MES[mes]) )
             create = 0
             for section in config.sections():
                 if section == "DEFAULT":
@@ -117,25 +122,35 @@ class ArquivoODT(Arquivo):
                     continue
                 if create == 0:
                     create = 1
-                    mes_el.append( new_element("span", attrs=[("style-name","T18")], text = ":") )
+                    mes_el.append( new_element("span", attrs=[("style-name","TMESSUB")], text = ":") )
                     res.append( mes_el )
                 # Add Titulo do Assunto
-                titulo = new_element("p", attrs=[("style-name","P40")], text = config[section]["titulo"])
+                titulo = new_element("p", attrs=[("style-name","PTITULO")], text = config[section]["titulo"])
                 if config[section]["tipo"]:
-                    titulo.append( new_element("span", attrs=[("style-name","T15")], text = " – %s"%config[section]["tipo"]) )
+                    titulo.append( new_element("span", attrs=[("style-name","TTIPO")], text = " – %s"%config[section]["tipo"]) )
                 res.append( titulo )
                 # Colocamos o Assunto
-                assunto = new_element("p", attrs=[("style-name","P39")])
-                assunto.append( new_element("span", attrs=[("style-name","T50")], text = "-a %d,"%data_event.day) )
-                assunto.append( new_element("span", attrs=[("style-name","T50")], text = " %s Nº %d - "%(config[section]["doc_tipo"],int(config[section]["doc_numero"]) )) )
-                assunto.append( new_element("span", attrs=[("style-name","T50")], text = config[section]["assunto"].format(**self._data)) )
-                res.append( assunto )
+                assunto = new_element("p", attrs=[("style-name","PASSUNTO")])
+                assunto.append( new_element("span", attrs=[("style-name","TASSUNTO")], text = "-a %d,"%data_event.day) )
+                assunto.append( new_element("span", attrs=[("style-name","TASSUNTO")], text = " %s Nº %d - "%(config[section]["doc_tipo"],int(config[section]["doc_numero"]) )) )
+                i = 0
+                for ass in config[section]["assunto"].format(**self._data).split("\\n"):
+                    if i == 0:
+                        assunto.append( new_element("span", attrs=[("style-name","TASSUNTO")], text = ass) )
+                        res.append( assunto )
+                    else:
+                        p = new_element("p", attrs=[("style-name","PASSUNTO")])
+                        # p.append( new_element("s", attrs=[("c", "4" )]) )
+                        p.append( new_element("tab" ) )
+                        p.append( new_element("span", attrs=[("style-name","TASSUNTO")], text = ass) )
+                        res.append(p)
+                    i=i+1
                 if config[section].get("modo", "normal") == "taf":
                     #add tabela TAF
                     res.extend(self._taf(section))# config[section])
                 res.append( blank_line() )
             if not res:
-                mes_el.append( new_element("span", attrs=[("style-name","T18")], text = ": Sem alteração.") )
+                mes_el.append( new_element("span", attrs=[("style-name","TMESSUB")], text = ": Sem alteração.") )
                 res.append( mes_el )
                 res.append( blank_line() )
             meses.append(res)
@@ -143,45 +158,45 @@ class ArquivoODT(Arquivo):
         # 1° Parte
         #
         self._result["parte_1"].append( blank_line() )
-        self._result["parte_1"].append( new_element("p", attrs=[("style-name","P20")], text = "1ª PARTE:") )
+        self._result["parte_1"].append( new_element("p", attrs=[("style-name","PPARTE")], text = "1ª PARTE:") )
         self._result["parte_1"].append( blank_line() )
 
         for mes in meses:
             for linha in mes:
                 self._result["parte_1"].append(linha)
         self._result["parte_1"].append( blank_line() )
-        self._result["parte_1"].append( new_element("p", attrs=[("style-name","P58")], text = "Comportamento: “BOM”") )
+        self._result["parte_1"].append( new_element("p", attrs=[("style-name","PCOMPORTAMENTO")], text = "Comportamento: “%s”"%self._data.get("comportamento","BOM")) )
         #
         # 2° Parte
         #
         self._result["parte_2"].append( blank_line() )
-        self._result["parte_2"].append( new_element("p", attrs=[("style-name","P20")], text = "2ª PARTE:") )
+        self._result["parte_2"].append( new_element("p", attrs=[("style-name","PPARTE")], text = "2ª PARTE:") )
         self._result["parte_2"].append( blank_line() )
         def get_tempo(titulo, tempo, sequencia=0):
-            assunto = new_element("p", attrs=[("style-name","P18")])
-            assunto.append( new_element("span", attrs=[("style-name","T22")], text=titulo) )# .ljust(101, ".")
-            assunto.append( new_element("span", attrs=[("style-name","T22")], text="".ljust(sequencia, ".") ) )
-            assunto.append( new_element("span", attrs=[("style-name","T22")], text=tempo) )
+            assunto = new_element("p", attrs=[("style-name","PTEMPO")])
+            assunto.append( new_element("span", attrs=[("style-name","TTEMPO")], text=titulo) )# .ljust(101, ".")
+            assunto.append( new_element("span", attrs=[("style-name","TTEMPO")], text="".ljust(sequencia, ".") ) )
+            assunto.append( new_element("span", attrs=[("style-name","TTEMPO")], text=tempo) )
             return assunto
-        self._result["parte_2"].append( get_tempo("1. TEMPO COMPUTADO DE EFETIVO SERVIÇO (TC)", "00a10m00d", sequencia=58) )
-        self._result["parte_2"].append( get_tempo("a. Arregimentado", "00a10m00d", sequencia=111) )
-        self._result["parte_2"].append( get_tempo("b. Não Arregimentado", "00a10m00d", sequencia=103) )
-        self._result["parte_2"].append( get_tempo("2. TEMPO NÃO COMPUTADO (TNC)", "00a10m00d", sequencia=82) )
-        self._result["parte_2"].append( get_tempo("3. TEMPO DE SERVIÇO COMPUTÁVEL PARA MEDALHA MILITAR", "00a10m00d", sequencia=38) )
-        self._result["parte_2"].append( get_tempo("4. TEMPO DE SERVIÇO NACIONAL RELEVANTE (TSNR)", "00a10m00d", sequencia=53) )
-        self._result["parte_2"].append( get_tempo("5. TEMPO TOTAL DE EFETIVO DE SERVIÇO (TTES)", "00a10m00d", sequencia=58+3) )
+        self._result["parte_2"].append( get_tempo("1. TEMPO COMPUTADO DE EFETIVO SERVIÇO (TC)", self._data.get("TCES", "00a10m00d"), sequencia=58) )
+        self._result["parte_2"].append( get_tempo("a. Arregimentado", self._data.get("TC_A", "00a10m00d"), sequencia=111) )
+        self._result["parte_2"].append( get_tempo("b. Não Arregimentado", self._data.get("TC_NA", "00a10m00d"), sequencia=103) )
+        self._result["parte_2"].append( get_tempo("2. TEMPO NÃO COMPUTADO (TNC)", self._data.get("TNC", "00a10m00d"), sequencia=82) )
+        self._result["parte_2"].append( get_tempo("3. TEMPO DE SERVIÇO COMPUTÁVEL PARA MEDALHA MILITAR", self._data.get("TSCMM", "01a00m00d"), sequencia=38) )
+        self._result["parte_2"].append( get_tempo("4. TEMPO DE SERVIÇO NACIONAL RELEVANTE (TSNR)", self._data.get("TSNR", "00a10m00d"), sequencia=53) )
+        self._result["parte_2"].append( get_tempo("5. TEMPO TOTAL DE EFETIVO DE SERVIÇO (TTES)", self._data.get("TTES", "00a10m00d"), sequencia=58+3) )
 
         # info do local e data
         self._result["parte_2"].append( blank_line() )
-        info = new_element("p", attrs=[("style-name","P19")])
-        info.append( new_element("span", attrs=[("style-name","T25")], text="Quartel em %s, %s"%(config["DEFAULT"]["cidade_uf"], config["DEFAULT"]["data"])) )
+        info = new_element("p", attrs=[("style-name","PLOCALDATA")])
+        info.append( new_element("span", attrs=[("style-name","TLOCALDATA")], text="Quartel em %s, %s"%(config["DEFAULT"]["cidade_uf"], config["DEFAULT"]["data"])) )
         self._result["parte_2"].append( info )
         self._result["parte_2"].append( blank_line() )
 
         #assina...
         self._result["parte_2"].append( blank_line() )
-        self._result["parte_2"].append( new_element("p", attrs=[("style-name","P108")], text = config["DEFAULT"]["assina"]) )
-        self._result["parte_2"].append( new_element("p", attrs=[("style-name","P108")], text = config["DEFAULT"]["assina_func"]) )
+        self._result["parte_2"].append( new_element("p", attrs=[("style-name","PASSINA")], text = config["DEFAULT"]["assina"]) )
+        self._result["parte_2"].append( new_element("p", attrs=[("style-name","PASSINA")], text = config["DEFAULT"]["assina_func"]) )
         # self._result["parte_2"].append( blank_line() )
 
     def run_style(self):

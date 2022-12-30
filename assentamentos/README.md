@@ -3,8 +3,7 @@
 
 ## LISTA CSV
 
-VARIAVEIS
----------
+### VARIAVEIS
 
 Arquivo Tipo Planilha simples, onde deve conter o seguinte obrigatoriamente:
 
@@ -15,8 +14,7 @@ identidade | Identidade do Militar
 grad       | Graduação do Militar: Sd Ef Vrv
 qm         | Qualificação Militar: RECRUTA, INFANTARIA, etc
 
-VARIAVEIS DO MODO TAF
----------------------
+### VARIAVEIS DO MODO TAF
 
 onde *{nome_sessao}* representa a sessão configurada no arquivo *configure.ini*
 
@@ -32,19 +30,16 @@ onde *{nome_sessao}* representa a sessão configurada no arquivo *configure.ini*
 
 este arquivo é importante para a configuração das Alterações...
 
-SESSÃO
-------
+### SESSÃO
 
 as sessões são definidos *[nome_sessao]*, onde _nome_sessao_ é um nome simbolico e sem espaço, utilizado para separar os eventos.
 os nomes das sessões são pesquisadas no arquivo *lista.csv* se forem = 1 ou X ele apresentará a sessão no documento final.
 
-MODOS
------
+### MODOS
 
 dentro das sessoes, exite uma variavel chamada *modo* onde definimos o modo daquele arquivo, Ex: normal, taf, .
 
-VARIAVEIS
----------
+### VARIAVEIS
 
 são as seguintes:
 
@@ -58,8 +53,7 @@ doc_numero | Número do Documento
 modo       | Modo de arrumação do documemento: normal, taf
 assunto    | Toda as descrição do evento.
 
-VARIAVEIS ALTERNATIVAS
-----------------------
+### VARIAVEIS ALTERNATIVAS
 
 Podemos chamar atraves da variavel *assunto* algum valor do *lista.csv*, assim:
 
