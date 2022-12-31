@@ -89,6 +89,68 @@ class ArquivoODT(Arquivo):
         # grad, nome, qmg_qmp, origem, destino, claro, obs
         return res
 
+    def _insp_saude(self, section):
+        res = []
+        # grad, nome, sessao, data, ata
+        table = new_element("table", attrs=[("name",section),("style-name","INSP")], nsmap="table")
+        # Construimos as columas....
+        table.append( new_element("table-column", attrs=[("style-name","INSP.A")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","INSP.B")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","INSP.C")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","INSP.D")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","INSP.E")], nsmap="table") )
+        # Construimos a primeira linha como cabeçalho...
+        header = new_element("table-row", attrs=[("style-name","INSP.1")], nsmap="table")
+        body = new_element("table-row", attrs=[("style-name","INSP.2")], nsmap="table")
+        # inserimos o cabeçalho
+        cell = new_element("table-cell", attrs=[("style-name","INSP.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="GRAD") )
+        header.append( cell )
+        
+        cell = new_element("table-cell", attrs=[("style-name","INSP.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="NOME") )
+        header.append( cell )
+        
+        cell = new_element("table-cell", attrs=[("style-name","INSP.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="SESSÃO") )
+        header.append( cell )
+        
+        cell = new_element("table-cell", attrs=[("style-name","INSP.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="DATA") )
+        header.append( cell )
+        
+        cell = new_element("table-cell", attrs=[("style-name","INSP.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="ATA") )
+        header.append( cell )
+        
+        table.append( header )
+
+        # inserimos o Corpo
+        cell = new_element("table-cell", attrs=[("style-name","INSP.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("grad","Sd Ef Vrv")) )
+        body.append( cell )
+        
+        cell = new_element("table-cell", attrs=[("style-name","INSP.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data["nome"]) )
+        body.append( cell )
+        
+        cell = new_element("table-cell", attrs=[("style-name","INSP.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_SESSAO"%section)) )
+        body.append( cell )
+        
+        cell = new_element("table-cell", attrs=[("style-name","INSP.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_DATA"%section)) )
+        body.append( cell )
+        
+        cell = new_element("table-cell", attrs=[("style-name","INSP.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_ATA"%section)) )
+        body.append( cell )
+
+        table.append( body )
+        
+        res.append(table)
+        return res
+
     def populate(self):
         self._result = {
             "cabecalho":None,
@@ -148,6 +210,8 @@ class ArquivoODT(Arquivo):
                 if config[section].get("modo", "normal") == "taf":
                     #add tabela TAF
                     res.extend(self._taf(section))# config[section])
+                elif config[section].get("modo", "normal") == "insp_saude":
+                    res.extend( self._insp_saude(section) )
                 res.append( blank_line() )
             if not res:
                 mes_el.append( new_element("span", attrs=[("style-name","TMESSUB")], text = ": Sem alteração.") )
