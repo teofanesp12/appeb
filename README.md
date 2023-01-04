@@ -4,7 +4,9 @@
 ## DESCRIÇÃO
 
 Este sistema foi criado para facilitar diversos trabalhos nas OMs, para isso foi utilizado as seguintes ferramentas:
+
 	- [LibreOffice](https://pt-br.libreoffice.org/baixe-ja/libreoffice-novo/) documentação e outros modelos simples.
+
 	- [Python ORG](https://www.python.org/downloads/) é uma linguagem de Programação.
 
 ## INSTALAÇÃO 
