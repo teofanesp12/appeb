@@ -1,6 +1,12 @@
 # Applicativos do EB
 **Software for Military**
 
+## DESCRIÇÃO
+
+Este sistema foi criado para facilitar diversos trabalhos nas OMs, para isso foi utilizado as seguintes ferramentas:
+	- [LibreOffice](https://pt-br.libreoffice.org/baixe-ja/libreoffice-novo/) documentação e outros modelos simples.
+	- [Python ORG](https://www.python.org/downloads/) é uma linguagem de Programação.
+
 ## INSTALAÇÃO 
 
 SISTEMA
@@ -12,7 +18,7 @@ LINUX:
 
 WINDOWS:
 
-necessario baixar o instalador: [Python ORG](https://www.python.org/downloads/)
+necessário baixar o instalador: [Python ORG](https://www.python.org/downloads/), depois é só executar o arquivo *instalar.bat*
 
 DEPENDÊNCIAS
 ------------
@@ -39,4 +45,4 @@ INICIAR
 
 executar o arquivo _app.py_
 
-    python documento(nome)/app.py
+    python documento{nome}/app.py
