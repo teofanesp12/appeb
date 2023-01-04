@@ -14,11 +14,13 @@ Este sistema foi criado para facilitar diversos trabalhos nas OMs, para isso foi
 
 Baixar e instalar o [Python ORG](https://www.python.org/downloads/).
 
-Lembrar de configurar _LocalVariaveis_ no momento da instalação.
+_Selecione_ no momento da instalação: `Add python.exe to PATH`
+
+Caso instale em modo *Advanced* _selecione_: `Add Python to environment variables`
 
 ### 2° Passo
 
-Baixar o arquivo *Zip* [Arquivo ZIP](https://github.com/teofanesp12/appeb/archive/refs/heads/main.zip)
+Baixar o arquivo *Zip* [Download arquivo ZIP](https://github.com/teofanesp12/appeb/archive/refs/heads/main.zip)
 
 ### 3° Passo
 
@@ -26,4 +28,4 @@ Descompactar o arquivo baixado
 
 ### 4° Passo
 
-depois executar o arquivo *instalar.bat*
+Depois executar o arquivo *instalar.bat* que foi descompactado do arquivo [Arquivo ZIP](https://github.com/teofanesp12/appeb/archive/refs/heads/main.zip)
