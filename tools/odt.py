@@ -48,6 +48,27 @@ class Content:
                 self.styles = child
             elif child.tag == "{%s}%s"%(namespace,"body"):
                 self.body = child[0]
+
+    def format_body(self, data, loop=[]):
+        if not data:
+            return
+        if len(loop) == 0:
+            loop = self.body
+        for b in loop:
+            if b.text and type(b.text)== str:
+                b.text = b.text.format(**data)
+            self.format_body(data=data, loop=b)
+
+    def replace_body(self, str_old, str_new, loop=[]):
+        
+        if len(loop) == 0:
+            loop = self.body
+        for b in loop:
+            if b.text and type(b.text)== str:
+                b.text = b.text.replace(str_old, str_new)
+            if len(b) != 0:
+                self.replace_body(str_old, str_new, loop=b)
+    
     def write(self):
         self.content.write(self._arquivo, pretty_print=False, encoding="utf-8", method="xml", xml_declaration=True)
 
@@ -84,6 +105,27 @@ class Styles:
 
     def write(self):    
         self._styles.write(self._arquivo, pretty_print=False, encoding="utf-8", method="xml", xml_declaration=True)
+
+    def format(self, data, loop=[]):
+        if not data:
+            return
+        if len(loop) == 0:
+            loop = self.body
+        for b in loop:
+            if b.text and type(b.text)== str:
+                b.text = b.text.format(**data)
+            self.format(data=data, loop=b)
+
+    def replace(self, str_old, str_new, loop=[]):
+        if len(loop) == 0:
+            loop = self.body
+        for b in loop:
+            if b.text and type(b.text)== str:
+                b.text = b.text.replace(str_old, str_new)
+            if len(b) != 0:
+                self.replace(str_old, str_new, loop=b)
+    
+
 
 class ArquivoODT:
     def __init__(self):
@@ -147,4 +189,11 @@ class ArquivoODT:
     def run(self):
         self.styles.write()
         self.content.write()
+
+    def replace(self):
+        if self.content:
+            self.content.format_body(self._data)
+        if self.styles:
+            self.styles.format(self._data)
+        
     

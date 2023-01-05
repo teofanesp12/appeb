@@ -13,7 +13,7 @@ class Requerimento(ArquivoODT):
     def __init__(self):
         super().__init__()
 
-    def replace(self):
+    def replace2(self):
         #
         # Find and replace tokens
         #
@@ -46,5 +46,5 @@ if __name__ == "__main__":
         arquivo.setConfigure(configure)
         arquivo.set_data(linha, headers=configure.getData().headers)
         arquivo.extrair()
-        arquivo.replace()
+        arquivo.replace2()
         arquivo.comprimir()
