@@ -14,7 +14,11 @@ Este sistema foi criado para facilitar diversos trabalhos nas OMs, para isso foi
 
 Baixar e instalar o [Python ORG](https://www.python.org/downloads/).
 
+![ScreenShot](https://github.com/teofanesp12/appeb/blob/main/doc/install/windows_default.png?raw=true)
+
 _Selecione_ no momento da instalação: `Add python.exe to PATH`
+
+![ScreenShot](https://github.com/teofanesp12/appeb/blob/main/doc/install/windows_advancedoptions.png?raw=true)
 
 Caso instale em modo *Advanced* _selecione_: `Add Python to environment variables`
 
