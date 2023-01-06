@@ -196,7 +196,12 @@ class ArquivoODT(Arquivo):
                 assunto.append( new_element("span", attrs=[("style-name","TASSUNTO")], text = "-a %d,"%data_event.day) )
                 assunto.append( new_element("span", attrs=[("style-name","TASSUNTO")], text = " %s Nº %d - "%(config[section]["doc_tipo"],int(config[section]["doc_numero"]) )) )
                 i = 0
-                for ass in config[section]["assunto"].format(**self._data).split("\\n"):
+                try:
+                    ass = config[section]["assunto"].format(**self._data)
+                except:
+                    ass = config[section]["assunto"]
+                    print("não foi possivel juntar A Lista ao Assunto.")
+                for ass in ass.split("\\n"):
                     if i == 0:
                         assunto.append( new_element("span", attrs=[("style-name","TASSUNTO")], text = ass) )
                         res.append( assunto )
@@ -242,13 +247,13 @@ class ArquivoODT(Arquivo):
             assunto.append( new_element("span", attrs=[("style-name","TTEMPO")], text="".ljust(sequencia, ".") ) )
             assunto.append( new_element("span", attrs=[("style-name","TTEMPO")], text=tempo) )
             return assunto
-        self._result["parte_2"].append( get_tempo("1. TEMPO COMPUTADO DE EFETIVO SERVIÇO (TC)", self._data.get("TCES", "00a10m00d"), sequencia=58) )
-        self._result["parte_2"].append( get_tempo("a. Arregimentado", self._data.get("TC_A", "00a10m00d"), sequencia=111) )
-        self._result["parte_2"].append( get_tempo("b. Não Arregimentado", self._data.get("TC_NA", "00a10m00d"), sequencia=103) )
-        self._result["parte_2"].append( get_tempo("2. TEMPO NÃO COMPUTADO (TNC)", self._data.get("TNC", "00a10m00d"), sequencia=82) )
-        self._result["parte_2"].append( get_tempo("3. TEMPO DE SERVIÇO COMPUTÁVEL PARA MEDALHA MILITAR", self._data.get("TSCMM", "01a00m00d"), sequencia=38) )
-        self._result["parte_2"].append( get_tempo("4. TEMPO DE SERVIÇO NACIONAL RELEVANTE (TSNR)", self._data.get("TSNR", "00a10m00d"), sequencia=53) )
-        self._result["parte_2"].append( get_tempo("5. TEMPO TOTAL DE EFETIVO DE SERVIÇO (TTES)", self._data.get("TTES", "00a10m00d"), sequencia=58+3) )
+        self._result["parte_2"].append( get_tempo("1. TEMPO COMPUTADO DE EFETIVO SERVIÇO (TC)", self._data.get("TCES", config[section].get("TCES", "00a10m00d")), sequencia=58) )
+        self._result["parte_2"].append( get_tempo("a. Arregimentado", self._data.get("TC_A", config[section].get("TC_A", "00a10m00d")), sequencia=111) )
+        self._result["parte_2"].append( get_tempo("b. Não Arregimentado", self._data.get("TC_NA", config[section].get("TC_NA", "00a10m00d")), sequencia=103) )
+        self._result["parte_2"].append( get_tempo("2. TEMPO NÃO COMPUTADO (TNC)", self._data.get("TNC", config[section].get("TNC", "00a10m00d")), sequencia=82) )
+        self._result["parte_2"].append( get_tempo("3. TEMPO DE SERVIÇO COMPUTÁVEL PARA MEDALHA MILITAR", self._data.get("TSCMM", config[section].get("TSCMM", "00a10m00d")), sequencia=38) )
+        self._result["parte_2"].append( get_tempo("4. TEMPO DE SERVIÇO NACIONAL RELEVANTE (TSNR)", self._data.get("TSNR", config[section].get("TSNR", "00a10m00d")), sequencia=53) )
+        self._result["parte_2"].append( get_tempo("5. TEMPO TOTAL DE EFETIVO DE SERVIÇO (TTES)", self._data.get("TTES", config[section].get("TTES", "00a10m00d")), sequencia=58+3) )
 
         # info do local e data
         self._result["parte_2"].append( blank_line() )
