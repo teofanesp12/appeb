@@ -16,6 +16,8 @@ qm         | Qualificação Militar: RECRUTA, INFANTARIA, etc
 
 ### VARIAVEIS DO MODO TAF
 
+`modo = taf`
+
 onde *{nome_sessao}* representa a sessão configurada no arquivo *configure.ini*
 
   Variavel              |    Obs      
@@ -25,6 +27,17 @@ onde *{nome_sessao}* representa a sessão configurada no arquivo *configure.ini*
 {nome_sessao}_PBD       | PBD do TAF
 {nome_sessao}_OBS       | Obs do TAF realizado
 
+### VARIAVEIS DO MODO INSPEÇÃO DE SAÚDE
+
+`modo = insp_saude`
+
+onde *{nome_sessao}* representa a sessão configurada no arquivo *configure.ini*
+
+  Variavel              |    Obs      
+----------------------- | ---------------------------------------------- 
+{nome_sessao}_SESSAO    | SESSÃO que foi Salvo o documento
+{nome_sessao}_DATA      | Data da inspeção de saúde
+{nome_sessao}_ATA       | Ata do documento da inspeção de saúde
 
 ## CONFIGURE INI
 
@@ -50,7 +63,7 @@ titulo     | Titulo do Evento
 tipo       | Tipo do Evento, Ex: Distribuição etc
 doc_tipo   | Tipo do Documento: BI, BAR, BAEs
 doc_numero | Número do Documento
-modo       | Modo de arrumação do documemento: normal, taf
+modo       | Modo de arrumação do documemento: normal, taf, insp_saude
 assunto    | Toda as descrição do evento.
 
 ### VARIAVEIS ALTERNATIVAS
