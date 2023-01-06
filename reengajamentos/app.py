@@ -23,10 +23,7 @@ class Requerimento(ArquivoODT):
 
         # xmlFileObj = open(xmlFileURL, "r+", encoding="utf-8")
         for line in fileinput.FileInput(xmlFileURL, inplace=1):
-            if (int(self._data['voluntario'])):
-                print (line.replace("{{nome}}",self._data['nome']).replace("{{nup}}",self._data['nup']).replace("{{idt}}",self._data['identidade']))
-            else:
-                print (line.replace("{{nome}}",self._data['nome']).replace("{{nup}}",self._data['nup']).replace("{{idt}}",self._data['identidade']).replace("requer","nao requer"))
+            print (line.replace("{nome}",self._data['nome']).replace("{nup}",self._data['nup']).replace("{identidade}",self._data['identidade']).replace("{requer}",self._data['requer']))
 
 if __name__ == "__main__":
     from tools.configure import Configure
@@ -46,5 +43,6 @@ if __name__ == "__main__":
         arquivo.setConfigure(configure)
         arquivo.set_data(linha, headers=configure.getData().headers)
         arquivo.extrair()
-        arquivo.replace2()
+        arquivo.replace()
+        arquivo.write()
         arquivo.comprimir()

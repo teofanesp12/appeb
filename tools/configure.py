@@ -14,7 +14,7 @@ class Configure:
         self.csvSourceFile = csvSourceFile
         self.csvSourceFileURL=self.rootDirURL+"\\"+csvSourceFile
 
-        self._data = tablib.Dataset().load(open(self.csvSourceFileURL, 'r'))
+        self._data = tablib.Dataset().load(open(self.csvSourceFileURL, 'rb').read().decode('utf-8'))
 
     def setiniSourceFile(self, iniSourceFile):
         self.iniSourceFile = iniSourceFile

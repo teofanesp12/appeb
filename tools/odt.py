@@ -49,19 +49,23 @@ class Content:
             elif child.tag == "{%s}%s"%(namespace,"body"):
                 self.body = child[0]
 
-    def format_body(self, data, loop=[]):
+    def format_body(self, data, loop=None):
         if not data:
             return
-        if len(loop) == 0:
+        if type(loop) == type(None):
             loop = self.body
         for b in loop:
             if b.text and type(b.text)== str:
-                b.text = b.text.format(**data)
+                try:
+                    b.text = b.text.format(**data)
+                except KeyError:
+                    print("Uma chave não esta cadastrada no arquivo CSV: "+b.text)
+                except ValueError:
+                    print("Uma chave não esta correta no arquivo ODT MODELO: "+b.text)
             self.format_body(data=data, loop=b)
 
-    def replace_body(self, str_old, str_new, loop=[]):
-        
-        if len(loop) == 0:
+    def replace_body(self, str_old, str_new, loop=None):
+        if type(loop) == type(None):
             loop = self.body
         for b in loop:
             if b.text and type(b.text)== str:
@@ -106,25 +110,38 @@ class Styles:
     def write(self):    
         self._styles.write(self._arquivo, pretty_print=False, encoding="utf-8", method="xml", xml_declaration=True)
 
-    def format(self, data, loop=[]):
+    def format_loop(self, data, loop):
         if not data:
             return
-        if len(loop) == 0:
-            loop = self.body
+        if type(loop) == type(None):
+            return
         for b in loop:
             if b.text and type(b.text)== str:
-                b.text = b.text.format(**data)
-            self.format(data=data, loop=b)
+                try:
+                    b.text = b.text.format(**data)
+                except KeyError:
+                    print("Uma chave não esta cadastrada no arquivo CSV: "+b.text)
+                except ValueError:
+                    print("Uma chave não esta correta no arquivo ODT MODELO: "+b.text)
 
-    def replace(self, str_old, str_new, loop=[]):
-        if len(loop) == 0:
-            loop = self.body
+            self.format_loop(data=data, loop=b)
+
+    def format(self, data):
+        self.format_loop(data, self.header)
+        self.format_loop(data, self.header_first)
+
+    def replace_loop(self, str_old, str_new, loop=None):
+        if type(loop) == type(None):
+            return
         for b in loop:
             if b.text and type(b.text)== str:
                 b.text = b.text.replace(str_old, str_new)
             if len(b) != 0:
                 self.replace(str_old, str_new, loop=b)
-    
+
+    def replace(self, str_old, str_new):
+        self.replace_loop(data, self.header)
+        self.replace_loop(data, self.header_first)
 
 
 class ArquivoODT:
@@ -187,6 +204,9 @@ class ArquivoODT:
         return self._data
 
     def run(self):
+        self.write()
+
+    def write(self):
         self.styles.write()
         self.content.write()
 
