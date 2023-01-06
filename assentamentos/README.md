@@ -76,3 +76,12 @@ assunto =  O referido militar, concluiu com aproveitamento em 15 de julho de 202
 ```
 
 no exemplo acima, vemos que *{qmp_qms}* faz referencia a um valor que se encontra no arquivo *lista.csv*
+
+## EXECUTAR
+
+para isso existe duas maneiras:
+
+* A mais simples: clicar duas vezes no arquivo _app.py_
+* Executando o arquivo _documentos_assentamentos.py_
+
+![ScreenShot](https://github.com/teofanesp12/appeb/blob/main/doc/assentamentos/gui_run.png?raw=true)
