@@ -10,8 +10,7 @@ Este sistema foi criado para facilitar diversos trabalhos nas OMs, para isso foi
 
 ## INSTALAÇÃO 
 
-SISTEMA
--------
+### SISTEMA
 
 LINUX:
 
@@ -21,8 +20,7 @@ WINDOWS:
 
 necessário baixar o instalador: [Python ORG](https://www.python.org/downloads/), depois é só executar o arquivo *instalar.bat*
 
-DEPENDÊNCIAS
-------------
+### DEPENDÊNCIAS
 
 BIBLIOTECAS:
 
@@ -36,13 +34,11 @@ execute o seguinte comando pelo terminal:
 
 ## EXECUTAR 
 
-CONFIGURAR
-----------
+### CONFIGURAR
 
 para iniciar basta, configurar os arquivos *lista.csv* e *configure.ini*.
 
-INICIAR
--------
+### INICIAR
 
 executar o arquivo _app.py_
 
