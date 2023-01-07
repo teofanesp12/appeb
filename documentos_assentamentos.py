@@ -36,6 +36,9 @@ class Application:
         # self.abrir_ini["width"] = 5
         self.abrir_ini["command"] = self.open_ini
         self.abrir_ini.pack (side=RIGHT)
+
+        self.msg2 = Label(self.widget1, text=" | ")
+        self.msg2.pack (side=RIGHT)
         
         self.runbttn = Button(self.widget1)
         self.runbttn["text"] = "GERAR ARQUIVOS"
@@ -44,8 +47,20 @@ class Application:
         self.runbttn["command"] = self.run
         self.runbttn.pack (side=RIGHT)
 
+        self.prontos = Button(self.widget1)
+        self.prontos["text"] = "ABRIR PRONTOS"
+        self.prontos["font"] = ("Calibri", "12")
+        # self.abrir_ini["width"] = 5
+        self.prontos["command"] = self.open_prontos
+        self.prontos.pack (side=RIGHT)
+
+        self.widget2 = Frame(master)
+        self.widget2.pack()
+
     def open_csv(self):
         os.system('start "C:\\Program Files\\LibreOffice\\program\\scalc.exe" "%s"'%rootDirURL+"\\assentamentos\\lista.csv")
+    def open_prontos(self):
+        os.system('start "C:\\Windows\\explorer.exe" "%s"'%rootDirURL+"\\prontos")
     def open_ini(self):
         os.system('start "C:\\Windows\\notepad.exe" "%s"'%rootDirURL+"\\assentamentos\\configure.ini")
 
