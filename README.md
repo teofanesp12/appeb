@@ -20,11 +20,13 @@ WINDOWS:
 
 necessário baixar o instalador: [Python ORG](https://www.python.org/downloads/), depois é só executar o arquivo *instalar.bat*
 
+Sugerimos seguir o seguinte: [Manual de Instalação](https://github.com/teofanesp12/appeb/blob/main/doc/install/INSTALL%20-%20WINDOWS.md)
+
 ### DEPENDÊNCIAS
 
 BIBLIOTECAS:
 
-    tablib, diff_match_patch, lxml
+    tablib, diff_match_patch, lxml, tk
 
 PYTHON:
 

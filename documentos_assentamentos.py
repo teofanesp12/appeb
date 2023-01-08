@@ -60,6 +60,10 @@ class Application:
     def open_csv(self):
         os.system('start "C:\\Program Files\\LibreOffice\\program\\scalc.exe" "%s"'%rootDirURL+"\\assentamentos\\lista.csv")
     def open_prontos(self):
+        try:
+            os.mkdir(rootDirURL+"\\prontos")
+        except OSError as error:
+            print(error)
         os.system('start "C:\\Windows\\explorer.exe" "%s"'%rootDirURL+"\\prontos")
     def open_ini(self):
         os.system('start "C:\\Windows\\notepad.exe" "%s"'%rootDirURL+"\\assentamentos\\configure.ini")
