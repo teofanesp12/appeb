@@ -36,6 +36,9 @@ class Application:
         # self.abrir_ini["width"] = 5
         self.abrir_odt["command"] = self.open_odt
         self.abrir_odt.pack (side=RIGHT)
+
+        self.msg2 = Label(self.widget1, text=" | ")
+        self.msg2.pack (side=RIGHT)
         
         self.runbttn = Button(self.widget1)
         self.runbttn["text"] = "GERAR ARQUIVO"
@@ -44,8 +47,21 @@ class Application:
         self.runbttn["command"] = self.run
         self.runbttn.pack (side=RIGHT)
 
+        self.prontos = Button(self.widget1)
+        self.prontos["text"] = "ABRIR PRONTOS"
+        self.prontos["font"] = ("Calibri", "12")
+        # self.abrir_ini["width"] = 5
+        self.prontos["command"] = self.open_prontos
+        self.prontos.pack (side=RIGHT)
+
     def open_csv(self):
         os.system('start "C:\\Program Files\\LibreOffice\\program\\scalc.exe" "%s"'%rootDirURL+"\\reengajamentos\\lista.csv")
+    def open_prontos(self):
+        try:
+            os.mkdir(rootDirURL+"\\prontos")
+        except OSError as error:
+            print(error)
+        os.system('start "C:\\Windows\\explorer.exe" "%s"'%rootDirURL+"\\prontos")
     def open_odt(self):
         os.system('start "C:\\Program Files\\LibreOffice\\program\\swriter.exe" "%s"'%rootDirURL+"\\reengajamentos\\requerimento_modelo.odt")
 
