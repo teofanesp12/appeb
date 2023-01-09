@@ -4,13 +4,6 @@ from assentamentos.app import ArquivoODT
 
 # definimos a raiz do diretorio
 rootDirURL = path.dirname(__file__)
-configure = Configure(rootDirURL)
-# definimos o modelo Alteração
-configure.setzipSourceFile("assentamentos\\modelo_alteracao.odt")
-# definimos o arquivo lista
-configure.setcsvSourceFile("assentamentos\\lista.csv")
-# definimos o arquivo de configuração
-configure.setiniSourceFile("assentamentos\\configure.ini")
 
 from tkinter import *
 import os
@@ -69,6 +62,13 @@ class Application:
         os.system('start "C:\\Windows\\notepad.exe" "%s"'%rootDirURL+"\\assentamentos\\configure.ini")
 
     def run(self):
+        configure = Configure(rootDirURL)
+        # definimos o modelo Alteração
+        configure.setzipSourceFile("assentamentos\\modelo_alteracao.odt")
+        # definimos o arquivo lista
+        configure.setcsvSourceFile("assentamentos\\lista.csv")
+        # definimos o arquivo de configuração
+        configure.setiniSourceFile("assentamentos\\configure.ini")
         #
         # iniciamos...
         #
