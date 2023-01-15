@@ -69,11 +69,11 @@ class Application:
     def run(self):
         configure = Configure(rootDirURL)
         # definimos o modelo Alteração
-        configure.setzipSourceFile("assentamentos\\modelo_alteracao.odt")
+        configure.setzipSourceFile("assentamentos","modelo_alteracao.odt")
         # definimos o arquivo lista
-        configure.setcsvSourceFile("assentamentos\\lista.csv")
+        configure.setcsvSourceFile("assentamentos","lista.csv")
         # definimos o arquivo de configuração
-        configure.setiniSourceFile("assentamentos\\configure.ini")
+        configure.setiniSourceFile("assentamentos","configure.ini")
         #
         # iniciamos...
         #

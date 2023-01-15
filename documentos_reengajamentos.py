@@ -1,16 +1,11 @@
+#! /usr/bin/python
 from tools.configure import Configure
+from tools.system import libreoffice_write, libreoffice_calc, editortxt, explore
 from os import path
 from reengajamentos.app import Requerimento
 
 # definimos a raiz do diretorio
 rootDirURL = path.dirname(__file__)
-configure = Configure(rootDirURL)
-# definimos o modelo Alteração
-configure.setzipSourceFile("reengajamentos\\requerimento_modelo.odt")
-# definimos o arquivo lista
-configure.setcsvSourceFile("reengajamentos\\lista.csv")
-# definimos o arquivo de configuração
-# configure.setiniSourceFile("reengajamentos\\configure.ini")
 
 from tkinter import *
 import os
@@ -55,17 +50,27 @@ class Application:
         self.prontos.pack (side=RIGHT)
 
     def open_csv(self):
-        os.system('start "C:\\Program Files\\LibreOffice\\program\\scalc.exe" "%s"'%rootDirURL+"\\reengajamentos\\lista.csv")
+        listaURL = os.path.join(rootDirURL, "reengajamentos", "lista.csv")
+        libreoffice_calc(listaURL)
     def open_prontos(self):
+        prontosURL = os.path.join(rootDirURL, "prontos")
         try:
-            os.mkdir(rootDirURL+"\\prontos")
+            os.mkdir(prontosURL)
         except OSError as error:
-            print(error)
-        os.system('start "C:\\Windows\\explorer.exe" "%s"'%rootDirURL+"\\prontos")
+            print("arquivo já criado...")
+        explore(prontosURL)
     def open_odt(self):
-        os.system('start "C:\\Program Files\\LibreOffice\\program\\swriter.exe" "%s"'%rootDirURL+"\\reengajamentos\\requerimento_modelo.odt")
+        odtURL = os.path.join(rootDirURL, "reengajamentos", "requerimento_modelo.odt")
+        libreoffice_write(odtURL)
 
     def run(self):
+        configure = Configure(rootDirURL)
+        # definimos o modelo Alteração
+        configure.setzipSourceFile("reengajamentos","requerimento_modelo.odt")
+        # definimos o arquivo lista
+        configure.setcsvSourceFile("reengajamentos","lista.csv")
+        # definimos o arquivo de configuração
+        # configure.setiniSourceFile("reengajamentos","configure.ini")
         #
         # iniciamos...
         #

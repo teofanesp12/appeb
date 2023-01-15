@@ -163,7 +163,8 @@ class ArquivoODT:
         # Unzip ODT
         #
         tmpDir="~odt_contents"+self.nome
-        self._tmpDirURL=self._configure.rootDirURL+"\\tmp\\"+tmpDir
+        self._tmpDirURL=path.join(self._configure.rootDirURL, "tmp", tmpDir)
+        print ("")
         print (" -- Extraindo ---------------------")
         print ("%s -> %s" % (self._configure.zipSourceFileURL, self._tmpDirURL))
 
@@ -173,27 +174,28 @@ class ArquivoODT:
         # abrimos os arquivos principais...
         
         xmlFile1="content.xml"
-        xmlFileURL1=self._tmpDirURL+"\\"+xmlFile1
+        xmlFileURL1=path.join(self._tmpDirURL, xmlFile1)
         self.content = Content(xmlFileURL1)
         
         xmlFile2="styles.xml"
-        xmlFileURL2=self._tmpDirURL+"\\"+xmlFile2
+        xmlFileURL2=path.join(self._tmpDirURL, xmlFile2)
         self.styles = Styles(xmlFileURL2)
     def comprimir(self):
         zipOutFile=self.nome+".odt"
-        zipOutFileURL=self._configure.rootDirURL+"\\prontos\\"+zipOutFile
+        zipOutFileURL=path.join(self._configure.prontos, zipOutFile)
         try:
-            os.mkdir(self._configure.rootDirURL+"\\prontos")
+            os.mkdir(self._configure.prontos)
         except OSError as error:
-            print(error)
+            print("Se arquivo já foi criado ignore, caso contrario confira o acesso da pasta 'prontos'")
         print (" -- Comprimindo --------------------")
         print ("%s -> %s" % (self._tmpDirURL , zipOutFileURL))
+        print ("")
 
         with zipfile.ZipFile(zipOutFileURL, 'w') as outzip:
             zipinfos = self._zipdata.infolist()
             for zipinfo in zipinfos:
                 fileName=zipinfo.filename # The name and path as stored in the archive
-                fileURL=self._tmpDirURL+"\\"+fileName # The actual name and path
+                fileURL=path.join(self._tmpDirURL, fileName)# The actual name and path
                 outzip.write(fileURL,fileName)
     def set_data(self, linha, headers=[]):
         i = 0
