@@ -68,7 +68,7 @@ class ArquivoODT(Arquivo):
         body.append( cell )
         
         cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.D1"), ['value-type','string','office']], nsmap="table")
-        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_PBD"%section)) )
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_PBD"%section, " - ")) )
         body.append( cell )
         
         cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.D1"), ['value-type','string','office']], nsmap="table")
@@ -170,7 +170,7 @@ class ArquivoODT(Arquivo):
             mes_el = new_element("p", attrs=[("style-name","PMES")])
             mes_el.append( new_element("span", attrs=[("style-name","TMES")], text = MES[mes]) )
             create = 0
-            for section in config.sections():
+            for section in self._configure.getSections():
                 if section == "DEFAULT":
                     continue
                 # Verificamos se é do mes
@@ -377,6 +377,7 @@ if __name__ == "__main__":
         arquivo = ArquivoODT()
         arquivo.nome = linha[0]
         arquivo.setConfigure(configure)
+        # arquivo._configure.getSections()
         arquivo.set_data(linha, headers=configure.getData().headers)
         arquivo.extrair()
         arquivo.run()

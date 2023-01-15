@@ -1,10 +1,12 @@
 import configparser
 import tablib
+from datetime import datetime
 
 class Configure:
     def __init__(self, root):
         self.rootDirURL = root
         self._data = []
+        self._sections_ini = []
 
     def setzipSourceFile(self, zipSourceFile):
         self.zipSourceFile = zipSourceFile
@@ -27,3 +29,27 @@ class Configure:
 
     def getData(self):
         return self._data
+
+    def getSections(self):
+        if self._sections_ini:
+            return self._sections_ini
+        sections = self.config.sections().copy()
+        print (sections)
+        meses = {}
+        for i in range(1,13):
+            meses[i] = []
+            for e in range(1,32):
+                for section in sections.copy():
+                    data_event = datetime.strptime(self.config[section]["data"], "%d/%m/%Y").date()
+                    if data_event.day == e and data_event.month == i:
+                        meses[i].append(section)
+                        try:
+                            sections.remove(section)
+                        except ValueError:
+                            print("Não consegui resolver "+section)
+        print(meses)
+        for i in range(1,13):
+            for sec in meses[i]:
+                self._sections_ini.append(sec)
+        print (self._sections_ini)
+        return self._sections_ini
