@@ -1,4 +1,6 @@
+#! /usr/bin/python
 from tools.configure import Configure
+from tools.system import libreoffice_write, libreoffice_calc, editortxt, explore
 from os import path
 from assentamentos.app import ArquivoODT
 
@@ -51,15 +53,18 @@ class Application:
         self.widget2.pack()
 
     def open_csv(self):
-        os.system('start "C:\\Program Files\\LibreOffice\\program\\scalc.exe" "%s"'%rootDirURL+"\\assentamentos\\lista.csv")
+        listaURL = os.path.join(rootDirURL, "assentamentos", "lista.csv")
+        libreoffice_calc(listaURL)
     def open_prontos(self):
+        prontosURL = os.path.join(rootDirURL, "prontos")
         try:
-            os.mkdir(rootDirURL+"\\prontos")
+            os.mkdir(prontosURL)
         except OSError as error:
-            print(error)
-        os.system('start "C:\\Windows\\explorer.exe" "%s"'%rootDirURL+"\\prontos")
+            print("arquivo já criado...")
+        explore(prontosURL)
     def open_ini(self):
-        os.system('start "C:\\Windows\\notepad.exe" "%s"'%rootDirURL+"\\assentamentos\\configure.ini")
+        configureURL = os.path.join(rootDirURL, "assentamentos", "configure.ini")
+        editortxt(configureURL)
 
     def run(self):
         configure = Configure(rootDirURL)
