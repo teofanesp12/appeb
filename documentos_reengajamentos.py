@@ -81,6 +81,7 @@ class Application:
             arquivo.set_data(linha, headers=configure.getData().headers)
             arquivo.extrair()
             arquivo.replace()
+            arquivo.write()
             arquivo.comprimir()
 
 root = Tk()
