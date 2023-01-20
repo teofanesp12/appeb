@@ -4,6 +4,8 @@ import sys
 
 sys.path.append("..")
 
+from tools.logging import info as info_log
+
 MES = ["-", "JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO",
              "JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO"]
 
@@ -72,7 +74,7 @@ class ArquivoODT(Arquivo):
         body.append( cell )
         
         cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.D1"), ['value-type','string','office']], nsmap="table")
-        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_PAD"%section)) )
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_PAD"%section, " - ")) )
         body.append( cell )
         
         cell = new_element("table-cell", attrs=[("style-name","TabelaTAF.D1"), ['value-type','string','office']], nsmap="table")
@@ -87,6 +89,142 @@ class ArquivoODT(Arquivo):
     def _trans_interna(self, section):
         res = []
         # grad, nome, qmg_qmp, origem, destino, claro, obs
+        return res
+    
+    def _inconsistencia_bancaria(self, section):
+        res = []
+        #
+        table = new_element("table", attrs=[("name",section),("style-name","TabelaINCONSISTENCIABANCARIA")], nsmap="table")
+        # Construimos as columas....
+        table.append( new_element("table-column", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.A")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.B")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.C")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.D")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.E")], nsmap="table") )
+        # Construimos a primeira linha como cabeçalho...
+        header = new_element("table-row", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.1")], nsmap="table")
+        body = new_element("table-row", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.1")], nsmap="table")
+        # inserimos o cabeçalho
+        cell = new_element("table-cell", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="CPF") )
+        header.append( cell )
+        
+        cell = new_element("table-cell", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="BANCO") )
+        header.append( cell )
+
+        cell = new_element("table-cell", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="AGÊNCIA") )
+        header.append( cell )
+
+        cell = new_element("table-cell", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="CONTA") )
+        header.append( cell )
+
+        cell = new_element("table-cell", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="CREDITADO") )
+        header.append( cell )
+
+        table.append( header )
+
+        # inserimos o Corpo
+        cell = new_element("table-cell", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.A2"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_CPF"%section, " - ")) )
+        body.append( cell )
+        
+        cell = new_element("table-cell", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.A2"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_BANCO"%section, " - ")) )
+        body.append( cell )
+        
+        cell = new_element("table-cell", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.A2"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_AGENCIA"%section, " - ")) )
+        body.append( cell )
+        
+        cell = new_element("table-cell", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.D2"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_CONTA"%section, " - ")) )
+        body.append( cell )
+
+        
+        cell = new_element("table-cell", attrs=[("style-name","TabelaINCONSISTENCIABANCARIA.D2"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_CREDITADO"%section, " - ")) )
+        body.append( cell )
+
+        table.append( body )
+        
+        res.append(table)
+        
+        return res
+
+    def _olimpiadas(self, section):
+        res = []
+        # grad, MODALIDADE, PONTUAÇÃO, TEMPO, CLASS, SU
+        table = new_element("table", attrs=[("name",section),("style-name","TabelaOLIMPIADAS")], nsmap="table")
+        # Construimos as columas....
+        table.append( new_element("table-column", attrs=[("style-name","TabelaOLIMPIADAS.A")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaOLIMPIADAS.B")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaOLIMPIADAS.C")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaOLIMPIADAS.D")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaOLIMPIADAS.E")], nsmap="table") )
+        table.append( new_element("table-column", attrs=[("style-name","TabelaOLIMPIADAS.F")], nsmap="table") )
+        # Construimos a primeira linha como cabeçalho...
+        header = new_element("table-row", attrs=[("style-name","TabelaOLIMPIADAS.1")], nsmap="table")
+        body = new_element("table-row", attrs=[("style-name","TabelaOLIMPIADAS.1")], nsmap="table")
+        # inserimos o cabeçalho
+        cell = new_element("table-cell", attrs=[("style-name","TabelaOLIMPIADAS.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="P/G") )
+        header.append( cell )
+
+        cell = new_element("table-cell", attrs=[("style-name","TabelaOLIMPIADAS.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="MODALIDADE") )
+        header.append( cell )
+
+        cell = new_element("table-cell", attrs=[("style-name","TabelaOLIMPIADAS.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="PONTUAÇÃO") )
+        header.append( cell )
+
+        cell = new_element("table-cell", attrs=[("style-name","TabelaOLIMPIADAS.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="TEMPO") )
+        header.append( cell )
+
+        cell = new_element("table-cell", attrs=[("style-name","TabelaOLIMPIADAS.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="CLASS") )
+        header.append( cell )
+
+        cell = new_element("table-cell", attrs=[("style-name","TabelaOLIMPIADAS.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PHEADERS")], text="SU") )
+        header.append( cell )
+
+        table.append( header )
+
+        # inserimos o Corpo
+        cell = new_element("table-cell", attrs=[("style-name","TabelaOLIMPIADAS.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("grad","Sd Ef Vrv")) )
+        body.append( cell )
+
+        cell = new_element("table-cell", attrs=[("style-name","TabelaOLIMPIADAS.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_MODALIDADE"%section, " - ") ) )
+        body.append( cell )
+
+        cell = new_element("table-cell", attrs=[("style-name","TabelaOLIMPIADAS.A1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_PONTOS"%section, " - ")) )
+        body.append( cell )        
+        
+        cell = new_element("table-cell", attrs=[("style-name","TabelaOLIMPIADAS.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_TEMPO"%section, " - ")) )
+        body.append( cell )
+
+        cell = new_element("table-cell", attrs=[("style-name","TabelaOLIMPIADAS.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_CLASS"%section, " - ")) )
+        body.append( cell )
+
+        cell = new_element("table-cell", attrs=[("style-name","TabelaOLIMPIADAS.D1"), ['value-type','string','office']], nsmap="table")
+        cell.append( new_element("p", attrs=[("style-name","PBODY")], text=self._data.get("%s_SU"%section, " - ")) )
+        body.append( cell )
+
+        table.append( body )
+        
+        res.append(table)
+        
         return res
 
     def _insp_saude(self, section):
@@ -180,7 +318,7 @@ class ArquivoODT(Arquivo):
                 # verificamos se na lista tem esta sessão ativada para gerar...
                 # print(section+"="+self._data.get(section, ""))
                 if section in self._data.keys() and (self._data.get(section) not in ['X','x', 1, "1"]):
-                    print("interrompemos o "+section)
+                    info_log(self._configure.tk, "interrompemos o %s devido"%section)
                     continue
                 if create == 0:
                     create = 1
@@ -200,7 +338,7 @@ class ArquivoODT(Arquivo):
                     ass = config[section]["assunto"].format(**self._data)
                 except:
                     ass = config[section]["assunto"]
-                    print("não foi possivel juntar A Lista ao Assunto.")
+                    info_log(self._configure.tk, "não foi possivel juntar A Lista ao Assunto.")
                 for ass in ass.split("\\n"):
                     if i == 0:
                         assunto.append( new_element("span", attrs=[("style-name","TASSUNTO")], text = ass) )
@@ -217,6 +355,10 @@ class ArquivoODT(Arquivo):
                     res.extend(self._taf(section))# config[section])
                 elif config[section].get("modo", "normal") == "insp_saude":
                     res.extend( self._insp_saude(section) )
+                elif config[section].get("modo", "normal") == "olimpiadas":
+                    res.extend( self._olimpiadas(section) )
+                elif config[section].get("modo", "normal") == "inconsistencia_bancaria":
+                    res.extend( self._inconsistencia_bancaria(section) )
                 res.append( blank_line() )
             if not res:
                 mes_el.append( new_element("span", attrs=[("style-name","TMESSUB")], text = ": Sem alteração.") )

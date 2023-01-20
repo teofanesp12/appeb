@@ -4,6 +4,8 @@ import zipfile
 import os
 from os import path
 
+from tools.logging import info
+
 namespace = "urn:oasis:names:tc:opendocument:xmlns:office:1.0"
 NSMAP = {
     "text":"urn:oasis:names:tc:opendocument:xmlns:text:1.0",
@@ -164,9 +166,9 @@ class ArquivoODT:
         #
         tmpDir="~odt_contents"+self.nome
         self._tmpDirURL=path.join(self._configure.rootDirURL, "tmp", tmpDir)
-        print ("")
-        print (" -- Extraindo ---------------------")
-        print ("%s -> %s" % (self._configure.zipSourceFileURL, self._tmpDirURL))
+        info (self._configure.tk, "")
+        info (self._configure.tk," -- Extraindo ---------------------")
+        info (self._configure.tk,"%s -> %s" % (self._configure.zipSourceFileURL, self._tmpDirURL))
 
         self._zipdata = zipfile.ZipFile(self._configure.zipSourceFileURL)
         self._zipdata.extractall(self._tmpDirURL)
@@ -186,10 +188,10 @@ class ArquivoODT:
         try:
             os.mkdir(self._configure.prontos)
         except OSError as error:
-            print("Se arquivo já foi criado ignore, caso contrario confira o acesso da pasta 'prontos'")
-        print (" -- Comprimindo --------------------")
-        print ("%s -> %s" % (self._tmpDirURL , zipOutFileURL))
-        print ("")
+            info(self._configure.tk,"Se arquivo já foi criado ignore, caso contrario confira o acesso da pasta 'prontos'")
+        info (self._configure.tk," -- Comprimindo --------------------")
+        info (self._configure.tk,"%s -> %s" % (self._tmpDirURL , zipOutFileURL))
+        info (self._configure.tk,"")
 
         with zipfile.ZipFile(zipOutFileURL, 'w') as outzip:
             zipinfos = self._zipdata.infolist()

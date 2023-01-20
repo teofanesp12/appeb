@@ -9,6 +9,7 @@ class Configure:
         self._data = []
         self._sections_ini = []
         self.prontos = path.join(root, "prontos")
+        self.tk = None
 
     def setzipSourceFile(self, *zipSourceFile):
         self.zipSourceFile = zipSourceFile

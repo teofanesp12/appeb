@@ -1,6 +1,7 @@
-#! /usr/bin/python
+#!/usr/bin/env python3
 from tools.configure import Configure
 from tools.system import libreoffice_write, libreoffice_calc, editortxt, explore
+
 from os import path
 from assentamentos.app import ArquivoODT
 
@@ -51,6 +52,9 @@ class Application:
 
         self.widget2 = Frame(master)
         self.widget2.pack()
+        self.info= Text(self.widget2, height= 10,width= 80)
+        self.info.config(state= DISABLED)
+        self.info.pack()
 
     def open_csv(self):
         listaURL = os.path.join(rootDirURL, "assentamentos", "lista.csv")
@@ -60,7 +64,10 @@ class Application:
         try:
             os.mkdir(prontosURL)
         except OSError as error:
-            print("arquivo já criado...")
+            self.info.config(state= NORMAL)
+            self.info.insert(INSERT, "arquivo já criado...\n")
+            self.info.config(state= DISABLED)
+            # print("arquivo já criado...")
         explore(prontosURL)
     def open_ini(self):
         configureURL = os.path.join(rootDirURL, "assentamentos", "configure.ini")
