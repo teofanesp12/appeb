@@ -84,14 +84,19 @@ class Application:
         #
         # iniciamos...
         #
+        self.info.config(state= NORMAL)
         for linha in configure.getData():
+            self.info.insert(INSERT, linha[0])
             arquivo = ArquivoODT()
             arquivo.nome = linha[0]
             arquivo.setConfigure(configure)
             arquivo.set_data(linha, headers=configure.getData().headers)
+            self.info.insert(INSERT, ": Iniciou com sucesso")
             arquivo.extrair()
             arquivo.run()
             arquivo.comprimir()
+            self.info.insert(INSERT, " - Finalizou arquivo ODT com sucesso\n\n")
+        self.info.config(state= DISABLED)
 
 root = Tk()
 Application(root)

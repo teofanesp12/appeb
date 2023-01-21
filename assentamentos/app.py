@@ -318,7 +318,7 @@ class ArquivoODT(Arquivo):
                 # verificamos se na lista tem esta sessão ativada para gerar...
                 # print(section+"="+self._data.get(section, ""))
                 if section in self._data.keys() and (self._data.get(section) not in ['X','x', 1, "1"]):
-                    info_log(self._configure.tk, "interrompemos o %s devido"%section)
+                    info_log(self._configure.tk, "interrompemos o %s porque não esta disponivel no arquivo 'Lista.csv'"%section)
                     continue
                 if create == 0:
                     create = 1
