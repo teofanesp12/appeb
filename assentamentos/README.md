@@ -39,6 +39,34 @@ onde *{nome_sessao}* representa a sessão configurada no arquivo *configure.ini*
 {nome_sessao}_DATA      | Data da inspeção de saúde
 {nome_sessao}_ATA       | Ata do documento da inspeção de saúde
 
+### VARIAVEIS DO MODO INCONSISTÊNCIA BANCÁRIA
+
+`modo = inconsistencia_bancaria`
+
+onde *{nome_sessao}* representa a sessão configurada no arquivo *configure.ini*
+
+  Variavel              |    Obs      
+----------------------- | ---------------------------------------------- 
+{nome_sessao}_CPF       | CPF do militar
+{nome_sessao}_BANCO     | Banco
+{nome_sessao}_AGENCIA   | Agência
+{nome_sessao}_CONTA     | Conta
+{nome_sessao}_CREDITADO | Valor creditado
+
+### VARIAVEIS DO MODO OLIMPIADAS
+
+`modo = olimpiadas`
+
+onde *{nome_sessao}* representa a sessão configurada no arquivo *configure.ini*
+
+  Variavel                |    Obs      
+------------------------- | ---------------------------------------------- 
+{nome_sessao}_MODALIDADE  | Modalidade
+{nome_sessao}_PONTOS      | Pontos
+{nome_sessao}_TEMPO       | Tempo
+{nome_sessao}_CLASS       | Classificação
+{nome_sessao}_SU          | Subunidade
+
 ## CONFIGURE INI
 
 este arquivo é importante para a configuração das Alterações...
