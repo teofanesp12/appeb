@@ -9,7 +9,9 @@ from assentamentos.app import ArquivoODT
 rootDirURL = path.dirname(__file__)
 
 from tkinter import *
+from tkinter import ttk
 import os
+from threading import Thread
 
 class Application:
     def __init__(self, master=None):
@@ -40,7 +42,7 @@ class Application:
         self.runbttn["text"] = "GERAR ARQUIVOS"
         self.runbttn["font"] = ("Calibri", "12")
         # self.abrir_ini["width"] = 5
-        self.runbttn["command"] = self.run
+        self.runbttn["command"] = self.run_def
         self.runbttn.pack (side=RIGHT)
 
         self.prontos = Button(self.widget1)
@@ -52,6 +54,8 @@ class Application:
 
         self.widget2 = Frame(master)
         self.widget2.pack()
+        self.pb = ttk.Progressbar(self.widget2, orient="horizontal", mode="determinate", length=580)
+        self.pb.pack()
         self.info= Text(self.widget2, height= 10,width= 80)
         self.info.config(state= DISABLED)
         self.info.pack()
@@ -73,6 +77,8 @@ class Application:
         configureURL = os.path.join(rootDirURL, "assentamentos", "configure.ini")
         editortxt(configureURL)
 
+    def run_def(self):
+        Thread(target=self.run).start()
     def run(self):
         configure = Configure(rootDirURL)
         # definimos o modelo Alteração
@@ -85,18 +91,24 @@ class Application:
         # iniciamos...
         #
         self.info.config(state= NORMAL)
+        len_data = len(configure.getData())
+        self.pb['value'] = 0
+        i = 0
         for linha in configure.getData():
             self.info.insert(INSERT, linha[0])
             arquivo = ArquivoODT()
             arquivo.nome = linha[0]
             arquivo.setConfigure(configure)
             arquivo.set_data(linha, headers=configure.getData().headers)
-            self.info.insert(INSERT, ": Iniciou com sucesso")
+            # self.info.insert(INSERT, ": Iniciou com sucesso")
             arquivo.extrair()
             arquivo.run()
             arquivo.comprimir()
-            self.info.insert(INSERT, " - Finalizou arquivo ODT com sucesso\n\n")
+            self.info.insert(INSERT, " - arquivo ODT pronto com sucesso\n\n")
+            self.pb['value'] = i/len_data*100
+            i+=1
         self.info.config(state= DISABLED)
+        self.pb['value'] = 100
 
 root = Tk()
 Application(root)

@@ -8,7 +8,9 @@ from reengajamentos.app import Requerimento
 rootDirURL = path.dirname(__file__)
 
 from tkinter import *
+from tkinter import ttk
 import os
+from threading import Thread
 
 class Application:
     def __init__(self, master=None):
@@ -39,7 +41,7 @@ class Application:
         self.runbttn["text"] = "GERAR ARQUIVO"
         self.runbttn["font"] = ("Calibri", "12")
         # self.abrir_ini["width"] = 5
-        self.runbttn["command"] = self.run
+        self.runbttn["command"] = self.run_def
         self.runbttn.pack (side=RIGHT)
 
         self.prontos = Button(self.widget1)
@@ -49,6 +51,14 @@ class Application:
         self.prontos["command"] = self.open_prontos
         self.prontos.pack (side=RIGHT)
 
+        self.widget2 = Frame(master)
+        self.widget2.pack()
+        self.pb = ttk.Progressbar(self.widget2, orient="horizontal", mode="determinate", length=580)
+        self.pb.pack()
+        self.info= Text(self.widget2, height= 10,width= 80)
+        self.info.config(state= DISABLED)
+        self.info.pack()
+
     def open_csv(self):
         listaURL = os.path.join(rootDirURL, "reengajamentos", "lista.csv")
         libreoffice_calc(listaURL)
@@ -57,12 +67,16 @@ class Application:
         try:
             os.mkdir(prontosURL)
         except OSError as error:
-            print("arquivo já criado...")
+            self.info.config(state= NORMAL)
+            self.info.insert(INSERT, "arquivo já criado...\n")
+            self.info.config(state= DISABLED)
         explore(prontosURL)
     def open_odt(self):
         odtURL = os.path.join(rootDirURL, "reengajamentos", "requerimento_modelo.odt")
         libreoffice_write(odtURL)
 
+    def run_def(self):
+        Thread(target=self.run).start()
     def run(self):
         configure = Configure(rootDirURL)
         # definimos o modelo Alteração
@@ -74,7 +88,12 @@ class Application:
         #
         # iniciamos...
         #
+        self.info.config(state= NORMAL)
+        len_data = len(configure.getData())
+        self.pb['value'] = 0
+        i = 0
         for linha in configure.getData():
+            self.info.insert(INSERT, linha[0])
             arquivo = Requerimento()
             arquivo.nome = linha[0]
             arquivo.setConfigure(configure)
@@ -83,6 +102,11 @@ class Application:
             arquivo.replace()
             arquivo.write()
             arquivo.comprimir()
+            self.pb['value'] = i/len_data*100
+            i+=1
+            self.info.insert(INSERT, " - arquivo ODT pronto com sucesso\n\n")
+        self.info.config(state= DISABLED)
+        self.pb['value'] = 100
 
 root = Tk()
 Application(root)
