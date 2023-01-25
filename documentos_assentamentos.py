@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 from tools.configure import Configure
 from tools.system import libreoffice_write, libreoffice_calc, editortxt, explore
 
