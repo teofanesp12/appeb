@@ -14,7 +14,7 @@ Este sistema foi criado para facilitar diversos trabalhos nas OMs, para isso foi
 
 LINUX:
 
-    apt install python3
+    apt install python3 python3-lxml python3-tablib python3-tk
 
 WINDOWS:
 
