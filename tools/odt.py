@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from lxml import etree
 import zipfile
 
@@ -129,8 +130,10 @@ class Styles:
             self.format_loop(data=data, loop=b)
 
     def format(self, data):
-        self.format_loop(data, self.header)
-        self.format_loop(data, self.header_first)
+        self.format_loop(data, self._styles.getroot())
+        # self.format_loop(data, self.header_first)
+        # print (len(self.header))
+        # print (self.page)
 
     def replace_loop(self, str_old, str_new, loop=None):
         if type(loop) == type(None):
@@ -142,8 +145,8 @@ class Styles:
                 self.replace(str_old, str_new, loop=b)
 
     def replace(self, str_old, str_new):
-        self.replace_loop(data, self.header)
-        self.replace_loop(data, self.header_first)
+        self.replace_loop(data, self._styles.getroot())
+        # self.replace_loop(data, self.header_first)
 
 
 class ArquivoODT:

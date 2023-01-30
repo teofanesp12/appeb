@@ -1,4 +1,5 @@
-#! /usr/bin/python
+#! /usr/bin/env python3
+# -*- coding: utf-8 -*-
 from tools.configure import Configure
 from tools.system import libreoffice_write, libreoffice_calc, editortxt, explore
 from os import path
@@ -21,14 +22,14 @@ class Application:
         self.msg.pack ()
 
         self.abrir_csv = Button(self.widget1)
-        self.abrir_csv["text"] = "EDITAR Arquivo CSV"
+        self.abrir_csv["text"] = "EDITAR Arquivo LISTA"
         self.abrir_csv["font"] = ("Calibri", "12")
         # self.abrir_csv["width"] = 5
         self.abrir_csv["command"] = self.open_csv
         self.abrir_csv.pack (side=RIGHT)
         
         self.abrir_odt = Button(self.widget1)
-        self.abrir_odt["text"] = "EDITAR Arquivo de Modelo"
+        self.abrir_odt["text"] = "EDITAR Arquivo de Modelo REQUERIMENTO"
         self.abrir_odt["font"] = ("Calibri", "12")
         # self.abrir_ini["width"] = 5
         self.abrir_odt["command"] = self.open_odt
@@ -53,7 +54,7 @@ class Application:
 
         self.widget2 = Frame(master)
         self.widget2.pack()
-        self.pb = ttk.Progressbar(self.widget2, orient="horizontal", mode="determinate", length=580)
+        self.pb = ttk.Progressbar(self.widget2, orient="horizontal", mode="determinate", length=640)
         self.pb.pack()
         self.info= Text(self.widget2, height= 10,width= 80)
         self.info.config(state= DISABLED)
@@ -72,7 +73,7 @@ class Application:
             self.info.config(state= DISABLED)
         explore(prontosURL)
     def open_odt(self):
-        odtURL = os.path.join(rootDirURL, "reengajamentos", "requerimento_modelo.odt")
+        odtURL = os.path.join(rootDirURL, "reengajamentos", "modelo_requerimento.odt")
         libreoffice_write(odtURL)
 
     def run_def(self):
@@ -80,7 +81,7 @@ class Application:
     def run(self):
         configure = Configure(rootDirURL)
         # definimos o modelo Alteração
-        configure.setzipSourceFile("reengajamentos","requerimento_modelo.odt")
+        configure.setzipSourceFile("reengajamentos","modelo_requerimento.odt")
         # definimos o arquivo lista
         configure.setcsvSourceFile("reengajamentos","lista.csv")
         # definimos o arquivo de configuração

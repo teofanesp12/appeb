@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import date, datetime
 import sys
 # from enum import Enum
@@ -479,7 +480,7 @@ class ArquivoODT(Arquivo):
         self.styles.header_first.append( p )
 
         p = new_element("p", attrs=[("style-name","MP1")])
-        p.append( new_element("span", attrs=[("style-name","MT5")], text="Identidade Militar: ") )
+        p.append( new_element("span", attrs=[("style-name","MT5")], text="IDENTIDADE MILITAR: ") )
         p.append( new_element("span", attrs=[("style-name","MT5")], text=self._data["identidade"]) )
         p.append( new_element("s", attrs=[("c", str(74-len(self._data["identidade"])) )]) )
         p.append( new_element("span", attrs=[("style-name","MT5")], text="PERÍODO: %s"%config["DEFAULT"]["periodo"]) )

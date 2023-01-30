@@ -1,4 +1,4 @@
-# coding: utf8
+# -*- coding: utf-8 -*-
 import sys
 sys.path.append("..")
 
@@ -33,13 +33,35 @@ if __name__ == "__main__":
     rootDirURL = path.dirname(__file__)
     configure = Configure(rootDirURL)
     # definimos o modelo Alteração
-    configure.setzipSourceFile("requerimento_modelo.odt")
+    configure.setzipSourceFile("modelo_requerimento.odt")
     # definimos o arquivo lista
     configure.setcsvSourceFile("lista.csv")
 
     for linha in configure.getData():
         arquivo = Requerimento()
-        arquivo.nome = linha[0]
+        arquivo.nome = "Requerimento "+linha[0]
+        arquivo.setConfigure(configure)
+        arquivo.set_data(linha, headers=configure.getData().headers)
+        arquivo.extrair()
+        arquivo.replace()
+        arquivo.write()
+        arquivo.comprimir()
+
+    configure.setzipSourceFile("modelo_info.odt")
+    for linha in configure.getData():
+        arquivo = ArquivoODT()
+        arquivo.nome = "Info "+linha[0]
+        arquivo.setConfigure(configure)
+        arquivo.set_data(linha, headers=configure.getData().headers)
+        arquivo.extrair()
+        arquivo.replace()
+        arquivo.write()
+        arquivo.comprimir()
+
+    configure.setzipSourceFile("modelo_despacho.odt")
+    for linha in configure.getData():
+        arquivo = ArquivoODT()
+        arquivo.nome = "Despacho "+linha[0]
         arquivo.setConfigure(configure)
         arquivo.set_data(linha, headers=configure.getData().headers)
         arquivo.extrair()
