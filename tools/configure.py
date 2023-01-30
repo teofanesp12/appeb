@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import configparser
 import tablib
 from datetime import datetime

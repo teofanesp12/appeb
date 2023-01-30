@@ -1,4 +1,5 @@
 # !/usr/bin/env python3
+# -*- coding: utf-8 -*-
 from tools.configure import Configure
 from tools.system import libreoffice_write, libreoffice_calc, editortxt, explore
 
@@ -54,7 +55,7 @@ class Application:
 
         self.widget2 = Frame(master)
         self.widget2.pack()
-        self.pb = ttk.Progressbar(self.widget2, orient="horizontal", mode="determinate", length=580)
+        self.pb = ttk.Progressbar(self.widget2, orient="horizontal", mode="determinate", length=640)
         self.pb.pack()
         self.info= Text(self.widget2, height= 10,width= 80)
         self.info.config(state= DISABLED)
@@ -113,4 +114,6 @@ class Application:
 root = Tk()
 Application(root)
 root.title('Alterações e Assentamentos')
+# p1 = PhotoImage(file = 'static/militar.png')
+# root.iconphoto(False, p1)
 root.mainloop()

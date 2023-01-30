@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 try:
     from tk import NORMAL, INSERT
 except:

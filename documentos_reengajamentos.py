@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+# !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from tools.configure import Configure
 from tools.system import libreoffice_write, libreoffice_calc, editortxt, explore
@@ -27,13 +27,28 @@ class Application:
         # self.abrir_csv["width"] = 5
         self.abrir_csv["command"] = self.open_csv
         self.abrir_csv.pack (side=RIGHT)
+
+        self.msg3 = Label(self.widget1, text=" | ")
+        self.msg3.pack (side=RIGHT)
+
+        self.abrir_odtDESPACHO = Button(self.widget1)
+        self.abrir_odtDESPACHO["text"] = "EDITAR Arquivo de Modelo DESPACHO"
+        self.abrir_odtDESPACHO["font"] = ("Calibri", "12")
+        self.abrir_odtDESPACHO["command"] = self.open_odtDESPACHO
+        self.abrir_odtDESPACHO.pack (side=RIGHT)
+
+        self.abrir_odtINFO = Button(self.widget1)
+        self.abrir_odtINFO["text"] = "EDITAR Arquivo de Modelo INFO"
+        self.abrir_odtINFO["font"] = ("Calibri", "12")
+        self.abrir_odtINFO["command"] = self.open_odtINFO
+        self.abrir_odtINFO.pack (side=RIGHT)
         
-        self.abrir_odt = Button(self.widget1)
-        self.abrir_odt["text"] = "EDITAR Arquivo de Modelo REQUERIMENTO"
-        self.abrir_odt["font"] = ("Calibri", "12")
+        self.abrir_odtREQUERIMENTO = Button(self.widget1)
+        self.abrir_odtREQUERIMENTO["text"] = "EDITAR Arquivo de Modelo REQUERIMENTO"
+        self.abrir_odtREQUERIMENTO["font"] = ("Calibri", "12")
         # self.abrir_ini["width"] = 5
-        self.abrir_odt["command"] = self.open_odt
-        self.abrir_odt.pack (side=RIGHT)
+        self.abrir_odtREQUERIMENTO["command"] = self.open_odtREQUERIMENTO
+        self.abrir_odtREQUERIMENTO.pack (side=RIGHT)
 
         self.msg2 = Label(self.widget1, text=" | ")
         self.msg2.pack (side=RIGHT)
@@ -54,9 +69,9 @@ class Application:
 
         self.widget2 = Frame(master)
         self.widget2.pack()
-        self.pb = ttk.Progressbar(self.widget2, orient="horizontal", mode="determinate", length=640)
+        self.pb = ttk.Progressbar(self.widget2, orient="horizontal", mode="determinate", length=1200)# 640
         self.pb.pack()
-        self.info= Text(self.widget2, height= 10,width= 80)
+        self.info= Text(self.widget2, height=10,width=130)#80
         self.info.config(state= DISABLED)
         self.info.pack()
 
@@ -72,8 +87,14 @@ class Application:
             self.info.insert(INSERT, "arquivo já criado...\n")
             self.info.config(state= DISABLED)
         explore(prontosURL)
-    def open_odt(self):
+    def open_odtREQUERIMENTO(self):
         odtURL = os.path.join(rootDirURL, "reengajamentos", "modelo_requerimento.odt")
+        libreoffice_write(odtURL)
+    def open_odtINFO(self):
+        odtURL = os.path.join(rootDirURL, "reengajamentos", "modelo_info.odt")
+        libreoffice_write(odtURL)
+    def open_odtDESPACHO(self):
+        odtURL = os.path.join(rootDirURL, "reengajamentos", "modelo_despacho.odt")
         libreoffice_write(odtURL)
 
     def run_def(self):
@@ -90,13 +111,13 @@ class Application:
         # iniciamos...
         #
         self.info.config(state= NORMAL)
-        len_data = len(configure.getData())
+        len_data = len(configure.getData())*3
         self.pb['value'] = 0
         i = 0
         for linha in configure.getData():
             self.info.insert(INSERT, linha[0])
             arquivo = Requerimento()
-            arquivo.nome = linha[0]
+            arquivo.nome = "Requerimento "+linha[0]
             arquivo.setConfigure(configure)
             arquivo.set_data(linha, headers=configure.getData().headers)
             arquivo.extrair()
@@ -105,7 +126,38 @@ class Application:
             arquivo.comprimir()
             self.pb['value'] = i/len_data*100
             i+=1
-            self.info.insert(INSERT, " - arquivo ODT pronto com sucesso\n\n")
+            self.info.insert(INSERT, " - arquivo REQUERIMENTO pronto com sucesso\n\n")
+
+        configure.setzipSourceFile("reengajamentos","modelo_info.odt")
+        for linha in configure.getData():
+            self.info.insert(INSERT, linha[0])
+            arquivo = Requerimento()
+            arquivo.nome = "Info "+linha[0]
+            arquivo.setConfigure(configure)
+            arquivo.set_data(linha, headers=configure.getData().headers)
+            arquivo.extrair()
+            arquivo.replace()
+            arquivo.write()
+            arquivo.comprimir()
+            self.pb['value'] = i/len_data*100
+            i+=1
+            self.info.insert(INSERT, " - arquivo INFO pronto com sucesso\n\n")
+
+        configure.setzipSourceFile("reengajamentos","modelo_despacho.odt")
+        for linha in configure.getData():
+            self.info.insert(INSERT, linha[0])
+            arquivo = Requerimento()
+            arquivo.nome = "Despacho "+linha[0]
+            arquivo.setConfigure(configure)
+            arquivo.set_data(linha, headers=configure.getData().headers)
+            arquivo.extrair()
+            arquivo.replace()
+            arquivo.write()
+            arquivo.comprimir()
+            self.pb['value'] = i/len_data*100
+            i+=1
+            self.info.insert(INSERT, " - arquivo DESPACHO pronto com sucesso\n\n")
+        
         self.info.config(state= DISABLED)
         self.pb['value'] = 100
 
