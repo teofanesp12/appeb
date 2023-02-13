@@ -1,7 +1,7 @@
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from tools.configure import Configure
-from tools.system import libreoffice_write, libreoffice_calc, editortxt, explore
+from tools.system import libreoffice_write, libreoffice_calc, editortxt, explore, convert_to_pdf
 from os import path
 from reengajamentos.app import Requerimento
 
@@ -67,14 +67,30 @@ class Application:
         self.prontos["command"] = self.open_prontos
         self.prontos.pack (side=RIGHT)
 
+        self.prontos = Button(self.widget1)
+        self.prontos["text"] = "GERAR PDFs"
+        self.prontos["font"] = ("Calibri", "12")
+        # self.abrir_ini["width"] = 5
+        self.prontos["command"] = self.pdfs_prontos
+        self.prontos.pack (side=RIGHT)
+
         self.widget2 = Frame(master)
         self.widget2.pack()
-        self.pb = ttk.Progressbar(self.widget2, orient="horizontal", mode="determinate", length=1200)# 640
+        self.pb = ttk.Progressbar(self.widget2, orient="horizontal", mode="determinate", length=1350)# 640
         self.pb.pack()
-        self.info= Text(self.widget2, height=10,width=130)#80
+        self.info= Text(self.widget2, height=10,width=180)#80
         self.info.config(state= DISABLED)
         self.info.pack()
-
+    def pdfs_prontos(self):
+        Thread(target=self.pdfs_prontos_thread).start()
+    def pdfs_prontos_thread(self):
+        prontosURL = os.path.join(rootDirURL, "prontos")
+        try:
+            os.mkdir(prontosURL)
+        except OSError as error:
+            pass
+        convert_to_pdf(prontosURL)
+        explore(prontosURL)
     def open_csv(self):
         listaURL = os.path.join(rootDirURL, "reengajamentos", "lista.csv")
         libreoffice_calc(listaURL)

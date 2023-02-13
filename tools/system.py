@@ -23,3 +23,9 @@ def explore(file_url):
         os.system('start "C:\\Windows\\explorer.exe" "%s"'%file_url)
     elif os.name == 'posix':
         os.system('nautilus "%s"'%file_url)
+
+def convert_to_pdf(diretorio):
+    if os.name == 'nt':
+        os.system('cd "%s" && "C:\\Program Files\\LibreOffice\\program\\soffice.exe" --headless --convert-to pdf *.odt'%diretorio)
+    elif os.name == 'posix':
+        os.system('cd "%s" && libreoffice --headless --convert-to pdf *.odt'%diretorio)
