@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version= 0.1
+Name=Reengajamento - App EB
+Icon=~/Documentos/aplicativo/static/militar.png
+Exec=python3 ~/Documentos/aplicativo/documentos_reengajamentos.py
+Terminal=false
+Type=Application

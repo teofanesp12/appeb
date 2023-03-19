@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version= 0.1
+Name=Declaração FUSEX - App EB
+Icon=~/Documentos/aplicativo/static/militar.png
+Exec=python3 ~/Documentos/aplicativo/documentos_declaracao_fusex.py
+Terminal=false
+Type=Application

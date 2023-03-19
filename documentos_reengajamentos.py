@@ -22,7 +22,7 @@ class Application:
         self.msg.pack ()
 
         self.abrir_csv = Button(self.widget1)
-        self.abrir_csv["text"] = "EDITAR Arquivo LISTA"
+        self.abrir_csv["text"] = "EDITAR PLANILHA"
         self.abrir_csv["font"] = ("Calibri", "12")
         # self.abrir_csv["width"] = 5
         self.abrir_csv["command"] = self.open_csv
@@ -32,19 +32,19 @@ class Application:
         self.msg3.pack (side=RIGHT)
 
         self.abrir_odtDESPACHO = Button(self.widget1)
-        self.abrir_odtDESPACHO["text"] = "EDITAR Arquivo de Modelo DESPACHO"
+        self.abrir_odtDESPACHO["text"] = "Modelo DESPACHO"
         self.abrir_odtDESPACHO["font"] = ("Calibri", "12")
         self.abrir_odtDESPACHO["command"] = self.open_odtDESPACHO
         self.abrir_odtDESPACHO.pack (side=RIGHT)
 
         self.abrir_odtINFO = Button(self.widget1)
-        self.abrir_odtINFO["text"] = "EDITAR Arquivo de Modelo INFO"
+        self.abrir_odtINFO["text"] = "Modelo INFO"
         self.abrir_odtINFO["font"] = ("Calibri", "12")
         self.abrir_odtINFO["command"] = self.open_odtINFO
         self.abrir_odtINFO.pack (side=RIGHT)
         
         self.abrir_odtREQUERIMENTO = Button(self.widget1)
-        self.abrir_odtREQUERIMENTO["text"] = "EDITAR Arquivo de Modelo REQUERIMENTO"
+        self.abrir_odtREQUERIMENTO["text"] = "Modelo REQUERIMENTO"
         self.abrir_odtREQUERIMENTO["font"] = ("Calibri", "12")
         # self.abrir_ini["width"] = 5
         self.abrir_odtREQUERIMENTO["command"] = self.open_odtREQUERIMENTO
@@ -76,9 +76,9 @@ class Application:
 
         self.widget2 = Frame(master)
         self.widget2.pack()
-        self.pb = ttk.Progressbar(self.widget2, orient="horizontal", mode="determinate", length=1350)# 640
+        self.pb = ttk.Progressbar(self.widget2, orient="horizontal", mode="determinate", length=820)# 640
         self.pb.pack()
-        self.info= Text(self.widget2, height=10,width=180)#80
+        self.info= Text(self.widget2, height=10,width=115)#80
         self.info.config(state= DISABLED)
         self.info.pack()
     def pdfs_prontos(self):
@@ -180,4 +180,5 @@ class Application:
 root = Tk()
 Application(root)
 root.title('Reengajamento de CBs e SDs')
+root.iconphoto(False, PhotoImage(file = os.path.join(rootDirURL, "static", "militar.png")))
 root.mainloop()

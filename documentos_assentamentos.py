@@ -23,7 +23,7 @@ class Application:
         self.msg.pack ()
 
         self.abrir_csv = Button(self.widget1)
-        self.abrir_csv["text"] = "EDITAR Arquivo Lista"
+        self.abrir_csv["text"] = "EDITAR Arquivo Planilha"
         self.abrir_csv["font"] = ("Calibri", "12")
         # self.abrir_csv["width"] = 5
         self.abrir_csv["command"] = self.open_csv
@@ -114,6 +114,5 @@ class Application:
 root = Tk()
 Application(root)
 root.title('Alterações e Assentamentos')
-# p1 = PhotoImage(file = 'static/militar.png')
-# root.iconphoto(False, p1)
+root.iconphoto(False, PhotoImage(file = os.path.join(rootDirURL, "static", "militar.png")))
 root.mainloop()
