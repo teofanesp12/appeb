@@ -102,7 +102,7 @@ class Application:
             self.info.config(state= NORMAL)
             self.info.insert(INSERT, "arquivo já criado...\n")
             self.info.config(state= DISABLED)
-        explore(prontosURL)
+        Thread(target=explore, args=(prontosURL,)).start()
     def open_odtREQUERIMENTO(self):
         odtURL = os.path.join(rootDirURL, "reengajamentos", "modelo_requerimento.odt")
         libreoffice_write(odtURL)

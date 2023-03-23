@@ -23,7 +23,7 @@ class Application:
         self.msg.pack ()
 
         self.abrir_csv = Button(self.widget1)
-        self.abrir_csv["text"] = "Arquivo LISTA"
+        self.abrir_csv["text"] = "Arquivo PLANILHA"
         self.abrir_csv["font"] = ("Calibri", "12")
         # self.abrir_csv["width"] = 5
         self.abrir_csv["command"] = self.open_csv
@@ -90,7 +90,7 @@ class Application:
             self.info.config(state= NORMAL)
             self.info.insert(INSERT, "arquivo já criado...\n")
             self.info.config(state= DISABLED)
-        explore(prontosURL)
+        Thread(target=explore, args=(prontosURL,)).start()
     def open_odt(self):
         odtURL = os.path.join(rootDirURL, "declaracao_fusex", "modelo.odt")
         libreoffice_write(odtURL)

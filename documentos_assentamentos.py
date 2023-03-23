@@ -73,7 +73,7 @@ class Application:
             self.info.insert(INSERT, "arquivo já criado...\n")
             self.info.config(state= DISABLED)
             # print("arquivo já criado...")
-        explore(prontosURL)
+        Thread(target=explore, args=(prontosURL,)).start()
     def open_ini(self):
         configureURL = os.path.join(rootDirURL, "assentamentos", "configure.ini")
         editortxt(configureURL)
