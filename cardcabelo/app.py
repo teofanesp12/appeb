@@ -2,12 +2,14 @@
 import sys
 sys.path.append("..")
 
+from os import path
 import os
 import zipfile
 import fileinput
 import tablib
 
 from tools.system import convert_to_pdf
+from tools.odt import namespace, NSMAP, _insert_namespace, new_element, Content, Styles
 from tools.odt import ArquivoODT
 
 class CartaoCabelo(ArquivoODT):
@@ -19,9 +21,9 @@ class CartaoCabelo(ArquivoODT):
         #
         tmpDir="~odt_contents"+self.nome
         self._tmpDirURL=path.join(self._configure.rootDirURL, "tmp", tmpDir)
-        info (self._configure.tk, "")
-        info (self._configure.tk," -- Extraindo ---------------------")
-        info (self._configure.tk,"%s -> %s" % (self._configure.zipSourceFileURL, self._tmpDirURL))
+        #info (self._configure.tk, "")
+        #info (self._configure.tk," -- Extraindo ---------------------")
+        #info (self._configure.tk,"%s -> %s" % (self._configure.zipSourceFileURL, self._tmpDirURL))
 
         self._zipdata = zipfile.ZipFile(self._configure.zipSourceFileURL)
         self._zipdata.extractall(self._tmpDirURL)
@@ -41,10 +43,11 @@ class CartaoCabelo(ArquivoODT):
         try:
             os.mkdir(self._configure.prontos)
         except OSError as error:
-            info(self._configure.tk,"Se arquivo já foi criado ignore, caso contrario confira o acesso da pasta 'prontos'")
-        info (self._configure.tk," -- Comprimindo --------------------")
-        info (self._configure.tk,"%s -> %s" % (self._tmpDirURL , zipOutFileURL))
-        info (self._configure.tk,"")
+            # info(self._configure.tk,"Se arquivo já foi criado ignore, caso contrario confira o acesso da pasta 'prontos'")
+            print('arquivo já criado')
+        # info (self._configure.tk," -- Comprimindo --------------------")
+        # info (self._configure.tk,"%s -> %s" % (self._tmpDirURL , zipOutFileURL))
+        # info (self._configure.tk,"")
 
         with zipfile.ZipFile(zipOutFileURL, 'w') as outzip:
             zipinfos = self._zipdata.infolist()
