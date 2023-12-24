@@ -2,3 +2,4 @@ tablib
 diff_match_patch
 lxml
 tk
+customtkinter
