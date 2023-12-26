@@ -53,12 +53,12 @@ class App(customtkinter.CTk):
         self.sidebar_button_3.grid(row=4, column=0, padx=20, pady=10)
         self.sidebar_button_4 = customtkinter.CTkButton(self.sidebar_frame, command=self.open_csv, text="Planilha")
         self.sidebar_button_4.grid(row=5, column=0, padx=20, pady=10)
-        self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Appearance Mode:", anchor="w")
+        self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Modo:", anchor="w")
         self.appearance_mode_label.grid(row=8, column=0, padx=20, pady=(10, 0))
         self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["Light", "Dark", "System"],
                                                                        command=self.change_appearance_mode_event)
         self.appearance_mode_optionemenu.grid(row=9, column=0, padx=20, pady=(10, 10))
-        self.scaling_label = customtkinter.CTkLabel(self.sidebar_frame, text="UI Scaling:", anchor="w")
+        self.scaling_label = customtkinter.CTkLabel(self.sidebar_frame, text="UI Escala:", anchor="w")
         self.scaling_label.grid(row=10, column=0, padx=20, pady=(10, 0))
         self.scaling_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["80%", "90%", "100%", "110%", "120%"],
                                                                command=self.change_scaling_event)
@@ -87,35 +87,35 @@ class App(customtkinter.CTk):
         # create tabview
         self.tabview = customtkinter.CTkTabview(self, width=250)
         self.tabview.grid(row=0, column=2, padx=(20, 0), pady=(20, 0), sticky="nsew")
-        self.tabview.add("CTkTabview")
-        self.tabview.add("Tab 2")
-        self.tabview.add("Tab 3")
-        self.tabview.tab("CTkTabview").grid_columnconfigure(0, weight=1)  # configure grid of individual tabs
-        self.tabview.tab("Tab 2").grid_columnconfigure(0, weight=1)
+        self.tabview.add("Configuração")
+        self.tabview.add("Alertas")
+        self.tabview.add("Erros")
+        self.tabview.tab("Configuração").grid_columnconfigure(0, weight=1)  # configure grid of individual tabs
+        self.tabview.tab("Alertas").grid_columnconfigure(0, weight=1)
 
-        self.optionmenu_1 = customtkinter.CTkOptionMenu(self.tabview.tab("CTkTabview"), dynamic_resizing=False,
+        self.optionmenu_1 = customtkinter.CTkOptionMenu(self.tabview.tab("Configuração"), dynamic_resizing=False,
                                                         values=["Value 1", "Value 2", "Value Long Long Long"])
         self.optionmenu_1.grid(row=0, column=0, padx=20, pady=(20, 10))
-        self.combobox_1 = customtkinter.CTkComboBox(self.tabview.tab("CTkTabview"),
+        self.combobox_1 = customtkinter.CTkComboBox(self.tabview.tab("Configuração"),
                                                     values=["Value 1", "Value 2", "Value Long....."])
         self.combobox_1.grid(row=1, column=0, padx=20, pady=(10, 10))
-        self.string_input_button = customtkinter.CTkButton(self.tabview.tab("CTkTabview"), text="Open CTkInputDialog",
+        self.string_input_button = customtkinter.CTkButton(self.tabview.tab("Configuração"), text="Open CTkInputDialog",
                                                            command=self.open_input_dialog_event)
         self.string_input_button.grid(row=2, column=0, padx=20, pady=(10, 10))
-        self.label_tab_2 = customtkinter.CTkLabel(self.tabview.tab("Tab 2"), text="CTkLabel on Tab 2")
+        self.label_tab_2 = customtkinter.CTkLabel(self.tabview.tab("Alertas"), text="CTkLabel on Tab 2")
         self.label_tab_2.grid(row=0, column=0, padx=20, pady=20)
 
         # create radiobutton frame
         self.radiobutton_frame = customtkinter.CTkFrame(self)
         self.radiobutton_frame.grid(row=0, column=3, padx=(20, 20), pady=(20, 0), sticky="nsew")
-        self.radio_var = tkinter.IntVar(value=0)
-        self.label_radio_group = customtkinter.CTkLabel(master=self.radiobutton_frame, text="CTkRadioButton Group:")
+        self.radio_var = tkinter.IntVar(value=1)# Selecionar NORMAL
+        self.label_radio_group = customtkinter.CTkLabel(master=self.radiobutton_frame, text="Tipo Relatório:")
         self.label_radio_group.grid(row=0, column=2, columnspan=1, padx=10, pady=10, sticky="")
-        self.radio_button_1 = customtkinter.CTkRadioButton(master=self.radiobutton_frame, variable=self.radio_var, value=0)
+        self.radio_button_1 = customtkinter.CTkRadioButton(master=self.radiobutton_frame, variable=self.radio_var, value=0, text="Simples")
         self.radio_button_1.grid(row=1, column=2, pady=10, padx=20, sticky="n")
-        self.radio_button_2 = customtkinter.CTkRadioButton(master=self.radiobutton_frame, variable=self.radio_var, value=1)
+        self.radio_button_2 = customtkinter.CTkRadioButton(master=self.radiobutton_frame, variable=self.radio_var, value=1, text="Normal")
         self.radio_button_2.grid(row=2, column=2, pady=10, padx=20, sticky="n")
-        self.radio_button_3 = customtkinter.CTkRadioButton(master=self.radiobutton_frame, variable=self.radio_var, value=2)
+        self.radio_button_3 = customtkinter.CTkRadioButton(master=self.radiobutton_frame, variable=self.radio_var, value=2, text="Detalhado")
         self.radio_button_3.grid(row=3, column=2, pady=10, padx=20, sticky="n")
 
         # create slider and progressbar frame
@@ -135,31 +135,36 @@ class App(customtkinter.CTk):
         
 
         # create scrollable frame
-        self.scrollable_frame = customtkinter.CTkScrollableFrame(self, label_text="CTkScrollableFrame")
+        self.scrollable_frame = customtkinter.CTkScrollableFrame(self, label_text="PRONTOS")
         self.scrollable_frame.grid(row=1, column=2, padx=(20, 0), pady=(20, 0), sticky="nsew")
         self.scrollable_frame.grid_columnconfigure(0, weight=1)
         self.scrollable_frame_switches = []
-        for i in range(15):
-            switch = customtkinter.CTkSwitch(master=self.scrollable_frame, text=f"CTkSwitch {i}")
-            switch.grid(row=i, column=0, padx=10, pady=(0, 20))
-            self.scrollable_frame_switches.append(switch)
+        i = 0
+        try:
+            for path in os.listdir(os.path.join(rootDirURL, "prontos")):
+                switch = customtkinter.CTkSwitch(master=self.scrollable_frame, text=f"{path}")
+                switch.grid(row=i, column=0, padx=10, pady=(0, 20))
+                self.scrollable_frame_switches.append(switch)
+                i = i+1
+        except: # os.FileNotFoundError:
+            pass
 
         # create checkbox and switch frame
         self.checkbox_slider_frame = customtkinter.CTkFrame(self)
         self.checkbox_slider_frame.grid(row=1, column=3, padx=(20, 20), pady=(20, 0), sticky="nsew")
-        self.checkbox_1 = customtkinter.CTkCheckBox(master=self.checkbox_slider_frame)
+        self.checkbox_1 = customtkinter.CTkCheckBox(master=self.checkbox_slider_frame, text="ODT")
         self.checkbox_1.grid(row=1, column=0, pady=(20, 0), padx=20, sticky="n")
-        self.checkbox_2 = customtkinter.CTkCheckBox(master=self.checkbox_slider_frame)
+        self.checkbox_2 = customtkinter.CTkCheckBox(master=self.checkbox_slider_frame, text="PDF")
         self.checkbox_2.grid(row=2, column=0, pady=(20, 0), padx=20, sticky="n")
-        self.checkbox_3 = customtkinter.CTkCheckBox(master=self.checkbox_slider_frame)
+        self.checkbox_3 = customtkinter.CTkCheckBox(master=self.checkbox_slider_frame, text="DOCX")
         self.checkbox_3.grid(row=3, column=0, pady=20, padx=20, sticky="n")
 
         # set default values
         # self.sidebar_button_3.configure(state="disabled", text="Disabled CTkButton")
         self.checkbox_3.configure(state="disabled")
         self.checkbox_1.select()
-        self.scrollable_frame_switches[0].select()
-        self.scrollable_frame_switches[4].select()
+        #self.scrollable_frame_switches[0].select()
+        #self.scrollable_frame_switches[4].select()
         self.radio_button_3.configure(state="disabled")
         self.appearance_mode_optionemenu.set("Dark")
         self.scaling_optionemenu.set("100%")
